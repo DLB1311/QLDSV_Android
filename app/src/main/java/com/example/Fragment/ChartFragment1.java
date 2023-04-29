@@ -20,6 +20,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +31,7 @@ import java.util.List;
 
 
 public class ChartFragment1 extends Fragment {
-
+    private  int[] colors;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,7 +67,6 @@ public class ChartFragment1 extends Fragment {
                         "WHERE\n" +
                         "        sv.MaSV = '"+maSinhVien+"'";
 
-            System.out.println("dayasedkmqwklrmekltnerknts.t: " + sql);
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
 
@@ -96,20 +96,39 @@ public class ChartFragment1 extends Fragment {
         // Thiết lập dữ liệu và thuộc tính biểu đồ
 
         List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(phantramTCDat, "Đã tích lũy"));
-        entries.add(new PieEntry(phantramTCChuaDat, "Chưa tích lũy"));
-        entries.add(new PieEntry(phantramTCChuaHoc, "chưa học"));
+//        entries.add(new PieEntry(phantramTCDat, "Đã tích lũy"));
+//        entries.add(new PieEntry(phantramTCChuaDat, "Chưa tích lũy"));
+//        entries.add(new PieEntry(phantramTCChuaHoc, "chưa học"));
+
+        if (phantramTCDat != null && phantramTCDat != 0) {
+            entries.add(new PieEntry(phantramTCDat, "Đã tích lũy"));
+        }
+        if (phantramTCChuaDat != null && phantramTCChuaDat != 0) {
+            entries.add(new PieEntry(phantramTCChuaDat, "Chưa tích lũy"));
+        }
+        if (phantramTCChuaHoc != null && phantramTCChuaHoc != 0) {
+            entries.add(new PieEntry(phantramTCChuaHoc, "Chưa học"));
+        }
+
+        if ( phantramTCChuaDat == 0) {
+            colors = new int[]{Color.rgb(60, 179, 113), Color.rgb(180, 180, 180)};
+
+        } else {
+            colors = new int[]{Color.rgb(60, 179, 113), Color.rgb(255, 105, 85), Color.rgb(180, 180, 180)};
+
+        }
 
         PieDataSet dataSet = new PieDataSet(entries, "Entries");
 
-        int[] colors = {Color.rgb(60, 179, 113), Color.rgb(255, 105, 85), Color.rgb(180, 180, 180)};
+
         dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
         data.setValueTextSize(20);
-
+        data.setValueFormatter(new PercentFormatter());
         chart.setData(data);
         chart.getDescription();
+
 
 //        chart.setUsePercentValues(true);
 

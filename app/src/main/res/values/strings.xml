@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test1</string>
+    <string name="app_name">QLDSV</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -92,4 +92,8 @@
     <string name="action_settings">Settings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="xem_diem">Xem điểm</string>
+    <string name="dang_ky_mon">Đăng kí môn</string>
+    <string name="tai_khoan">Tài Khoản</string>
+    <string name="dang_xuat">Đăng xuất</string>
 </resources>

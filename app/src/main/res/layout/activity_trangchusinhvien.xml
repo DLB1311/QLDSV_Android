@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_trangchu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0E407D">
+    android:background="#6C99D1">
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -110,12 +117,6 @@
                     android:clipToPadding="false"/>
 
             </LinearLayout>
-            <!--            <ImageView-->
-            <!--                android:id="@+id/banner_img_ptithcm"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="250dp"-->
-            <!--                android:layout_below="@+id/header"-->
-            <!--                android:background="@drawable/ptithcm"></ImageView>-->
 <!--End: banner_img_ptithcm -->
 
 <!--Begin: banner_noti_layout -->
@@ -230,9 +231,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 >
             </androidx.viewpager.widget.ViewPager>
-
-
-
+<!--End: chart_layout -->
 
 <!--Begin: menu_layout -->
             <LinearLayout
@@ -313,7 +312,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Đăng ký"
+                                android:text="Đăng ký môn"
                                 android:textSize="18sp"
                                 android:textColor="#000000"
                                 android:gravity="center"
@@ -337,18 +336,18 @@
                             android:orientation="vertical"
                             android:gravity="center">
                             <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/img_xemdangky"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Xem đăng ký"
-                                android:textSize="18sp"
-                                android:textColor="#000000"
-                                android:gravity="center"
-                                android:layout_marginTop="10dp"
-                                />
+                                android:layout_width="85dp"
+                                android:layout_height="85dp"
+                                android:src="@drawable/blank_btn"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Xem đăng ký"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                />-->
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
@@ -366,18 +365,18 @@
                             android:orientation="vertical"
                             android:gravity="center">
                             <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/img_dsmon"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Ds môn học"
-                                android:textSize="18sp"
-                                android:textColor="#000000"
-                                android:gravity="center"
-                                android:layout_marginTop="10dp"
-                                />
+                                android:layout_width="85dp"
+                                android:layout_height="85dp"
+                                android:src="@drawable/blank_btn"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Ds môn học"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                />-->
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -396,18 +395,18 @@
                             android:orientation="vertical"
                             android:gravity="center">
                             <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/img_dslop"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Ds lớp"
-                                android:textSize="18sp"
-                                android:textColor="#000000"
-                                android:gravity="center"
-                                android:layout_marginTop="10dp"
-                                />
+                                android:layout_width="85dp"
+                                android:layout_height="85dp"
+                                android:src="@drawable/blank_btn"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Ds lớp"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                />-->
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
@@ -425,17 +424,17 @@
                             android:orientation="vertical"
                             android:gravity="center">
                             <ImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ptithcm"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Title"
-                                android:textSize="18sp"
-                                android:textColor="#000000"
-                                android:gravity="center"
-                                />
+                                android:layout_width="85dp"
+                                android:layout_height="85dp"
+                                android:src="@drawable/blank_btn"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Title"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:gravity="center"-->
+<!--                                />-->
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -447,9 +446,7 @@
 <!--End: menu_layout -->
 
         </RelativeLayout>
-
     </ScrollView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -489,6 +486,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/cv_acc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -515,5 +513,16 @@
 
     </LinearLayout>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Navigation Drawer View -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/nav_menu"
+        android:padding="20dp"
+        />
+
+</androidx.drawerlayout.widget.DrawerLayout>

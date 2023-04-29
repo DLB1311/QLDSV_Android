@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class ResultViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<SubjectScore> unfilteredSSList;
     String maSinhVien;
+    ImageButton btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class ResultViewActivity extends AppCompatActivity {
         btnFilter = findViewById(R.id.button_filter);
         edtScoreFilter = findViewById(R.id.edit_search_trans);
         spnSemester = findViewById(R.id.semester_spinner);
+        btnBack = findViewById(R.id.btn_back);
     }
     private void setEvent(){
         setSpnSemesterEvent();
@@ -76,6 +79,15 @@ public class ResultViewActivity extends AppCompatActivity {
                 return false;
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ResultViewActivity.this, TrangChuSV.class);
+                intent.putExtra("maSinhVien", maSinhVien);
+                startActivity(intent);
+            }
+        });
+
     }
     private void setBtnFilterEvent(){
         btnFilter.setOnClickListener(new View.OnClickListener() {

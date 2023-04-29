@@ -1,8 +1,11 @@
 package com.example.QLDSV;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,8 +14,11 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.Database.DatabaseManager;
@@ -28,6 +34,8 @@ import com.bumptech.glide.Glide;
 
 import android.content.Intent;
 import com.example.QLDSV.MyAppGlideModule;
+import com.google.android.material.navigation.NavigationView;
+
 public class TrangChuSV extends AppCompatActivity {
 
     private boolean isBannerVisible = true;
@@ -36,8 +44,9 @@ public class TrangChuSV extends AppCompatActivity {
     private View bannerView;
     private Button closeButton,viewtbbtn ;
     private TextView tvName, banner_thongbao_tv , sothongbao_tv ;
-    private CardView cvAnhThe ,cvNoti, cvXemDiem, cvDangKy;
-    private ImageButton menubtn;
+    private CardView cvAnhThe ,cvNoti, cvXemDiem, cvDangKy,cvAcc;
+    private ImageButton menubtn,btnUser;
+    private DrawerLayout drawerLayoutTrangChu;
     String maSinhVien = "";
 
     private ImageView imageView;
@@ -102,7 +111,64 @@ public class TrangChuSV extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        cvAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TrangChuSV.this, Thongtinsv.class);
+                intent.putExtra("maSinhVien", maSinhVien);
+                startActivity(intent);
+            }
+        });
+        btnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TrangChuSV.this, Thongtinsv.class);
+                intent.putExtra("maSinhVien", maSinhVien);
+                startActivity(intent);
+            }
+        });
+        menubtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayoutTrangChu.openDrawer(GravityCompat.START);
+            }
+        });
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Handle navigation view item clicks here.
 
+                switch (item.getItemId()){
+                    case R.id.nav_xemdiem: {
+                        Intent intent = new Intent(TrangChuSV.this, ResultViewActivity.class);
+                        intent.putExtra("maSinhVien", maSinhVien);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.nav_dkmon: {
+                        Intent intent = new Intent(TrangChuSV.this, LopTinChiDaDangKy.class);
+                        intent.putExtra("maSinhVien", maSinhVien);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.nav_taikhoan: {
+                        Intent intent = new Intent(TrangChuSV.this, Thongtinsv.class);
+                        intent.putExtra("maSinhVien", maSinhVien);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.nav_logout: {
+                        Intent intent = new Intent(TrangChuSV.this, DangNhap.class);
+                        startActivity(intent);
+                        break;
+                    }
+                }
+
+                drawerLayoutTrangChu.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
     }
     private void hienThi(){
         viewpageimgptit();
@@ -114,23 +180,37 @@ public class TrangChuSV extends AppCompatActivity {
     }
     private void setControl() {
         bannerView  =(View)         findViewById(R.id.banner_noti_layout);
+
         closeButton =(Button)       findViewById(R.id.close_button);
         viewtbbtn   =(Button)       findViewById(R.id.view_thongbao_btn);
+
         menubtn   =(ImageButton)  findViewById(R.id.menubtn);
+        btnUser=(ImageButton)  findViewById(R.id.btnUser);
+
+        drawerLayoutTrangChu= findViewById(R.id.drawer_layout_trangchu);
 
         cvAnhThe    =(CardView)     findViewById(R.id.img_sv_cv);
+
+
         cvNoti      =(CardView)     findViewById(R.id.btnNotice);
         cvXemDiem =(CardView)     findViewById(R.id.cv_xemdiem);
         cvDangKy=(CardView)     findViewById(R.id.cv_dangkymon);
+        cvAcc=(CardView)     findViewById(R.id.cv_acc);
 
         tvName=(TextView)    findViewById(R.id.tvName);
         banner_thongbao_tv = findViewById(R.id.banner_thongbao_tv);
         sothongbao_tv = findViewById(R.id.notification_count);
+
         viewPagerChart   =(ViewPager)    findViewById(R.id.chart_layout);
 
         imageView = findViewById(R.id.img_sv);
 
+
         viewPagerHinh = findViewById(R.id.img_viewpager);
+
+
+
+
     }
 
     void viewpageimgptit(){
@@ -175,6 +255,8 @@ public class TrangChuSV extends AppCompatActivity {
                 Glide.with(imageView.getContext())
                         .load(imagePath)
                         .into(imageView);
+
+
             }
             rs.close();
             statement.close();
@@ -229,6 +311,7 @@ public class TrangChuSV extends AppCompatActivity {
             while (rs.next()) {
                 String hoTenSV = rs.getString("HoTen");
                 tvName.setText(hoTenSV);
+
             }
             rs.close();
             statement.close();
