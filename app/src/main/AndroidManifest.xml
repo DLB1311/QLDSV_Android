@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QLDSV"
         tools:targetApi="31">
+        <activity
+            android:name=".ThemThongBao"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ThongBaoActivity"
             android:exported="true">
@@ -25,42 +33,83 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TrangChuSV" android:exported="true"/>
-
-        <activity android:name=".Qlloptinchi_detail" android:exported="true"/>
-        <activity android:name=".Qlloptinchi_add" android:exported="true"/>
-        <activity android:name=".Qlloptinchi_main" android:exported="true"/>
-        <activity android:name=".QlmonhocTaomonhocActivity" android:exported="true"/>
-        <activity android:name=".DangNhap" android:exported="true"/>
-        <activity android:name=".nhapdiem" android:exported="true"/>
-        <activity android:name=".nhapdiem_ct_ltc" android:exported="true"/>
-        <activity android:name=".cap_nhat_diem" android:exported="true"/>
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity
+            android:name=".TrangChuSV"
+            android:exported="true" />
+        <activity
+            android:name=".Qlloptinchi_detail"
+            android:exported="true" />
+        <activity
+            android:name=".Qlloptinchi_add"
+            android:exported="true" />
+        <activity
+            android:name=".Qlloptinchi_main"
+            android:exported="true" />
+        <activity
+            android:name=".QlmonhocTaomonhocActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DangNhap"
+            android:exported="true" />
+        <activity
+            android:name=".nhapdiem"
+            android:exported="true" />
+        <activity
+            android:name=".nhapdiem_ct_ltc"
+            android:exported="true" />
+        <activity
+            android:name=".cap_nhat_diem"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".QlmonhocMainActivity" android:exported="true"/>
-        <activity android:name=".QlmonhocDetailsActivity" android:exported="true"/>
-        <activity android:name=".Qltaikhoansv" android:exported="true"/>
-        <activity android:name=".Taotaikhoansv" android:exported="true"/>
-        <activity android:name=".Thongtinsv" android:exported="true"/>
-        <activity android:name=".Taikhoansv_ct" android:exported="true"/>
-        <activity android:name=".Doimatkhausv" android:exported="true"/>
-        <activity android:name=".DangKyLopTinChi" android:theme="@style/AppTheme" android:exported="true"> </activity>
-        <activity android:name=".LopTinChiDaDangKy" android:theme="@style/AppTheme" android:exported="true"> </activity>
-        <activity android:name=".ResultViewActivity" android:exported="true"> </activity>
-        <activity android:name=".TrangChuPGV" android:exported="true">
+        <activity
+            android:name=".QlmonhocMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".QlmonhocDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Qltaikhoansv"
+            android:exported="true" />
+        <activity
+            android:name=".Taotaikhoansv"
+            android:exported="true" />
+        <activity
+            android:name=".Thongtinsv"
+            android:exported="true" />
+        <activity
+            android:name=".Taikhoansv_ct"
+            android:exported="true" />
+        <activity
+            android:name=".Doimatkhausv"
+            android:exported="true" />
+        <activity
+            android:name=".DangKyLopTinChi"
+            android:exported="true"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".LopTinChiDaDangKy"
+            android:exported="true"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".ResultViewActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".TrangChuPGV"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>
