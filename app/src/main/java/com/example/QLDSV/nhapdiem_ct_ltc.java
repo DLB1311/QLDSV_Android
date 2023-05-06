@@ -9,16 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.Database.DatabaseManager;
-import com.example.adapter.DiemSinhVienAdapter;
 import com.example.Objects.ObjectDiemSinhVien;
+import com.example.adapter.DiemSinhVienAdapter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class nhapdiem_ct_ltc extends AppCompatActivity {
-    SearchView searchView = null;
+    SearchView searchSV;
     Connection connect;
     String connectionResult="";
     ListView lvDSSV_LTC;
@@ -36,14 +37,23 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
     Context context;
     TextView maLTC, tenMH;
 
+    Button btnClickback;
+
+    String MaGiangVien = "";
+
     public static String maLTC_ct_ltc="", maSV_ct_ltc="", tenMH_ct_ltc="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nhapdiem_ct_ltc);
+
+        Intent intent = getIntent();
+        MaGiangVien = intent.getStringExtra("maGiangVien");
+
         setControl();
         setEvent();
+        searchTaiKhoan();
 
         diemSinhVienAdapter = new DiemSinhVienAdapter(this,R.layout.item_ctltc_nhapdiem,arrDiemSV);
         lvDSSV_LTC.setAdapter(diemSinhVienAdapter);
@@ -58,16 +68,23 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnClickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(nhapdiem_ct_ltc.this, nhapdiem.class);
+                intent.putExtra("maGiangVien", MaGiangVien);
+                startActivity(intent);
+            }
 
+        });
     }
 
 
         private void getDSSV() {
         try {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
+            connectionHelper connectionHelper = new connectionHelper();
+            connect = connectionHelper.connectionClass();
 
-            connect = DatabaseManager.getConnection();
             if(connect !=null){
                 String query =
                         "SELECT SV.MaSV, DK.DIEMCC,DK.DiemGK,DK.DiemCK,(MH.HeSoCC*DK.DiemCC + MH.HeSoGK*DK.DiemGK + MH.HeSocK*DK.DiemGK)/100 AS DIEMTK  \n" +
@@ -107,7 +124,10 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
         lvDSSV_LTC = (ListView) findViewById(R.id.lvDSSV_LTC);
         maLTC=findViewById(R.id.maLTC);
         tenMH=findViewById(R.id.tenMH);
+        searchSV = findViewById(R.id.searchTaiKhoan);
+        btnClickback = findViewById(R.id.btnClickback);
         arrDiemSV = new ArrayList<>();
+
     }
     private void setEvent(){
         maLTC.setText(nhapdiem.maLTC_NhapDiem);
@@ -116,10 +136,8 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
     }
     public void timKiemMaSV(String kitu){
         try {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
-
-            connect = DatabaseManager.getConnection();
+            connectionHelper connectionHelper = new connectionHelper();
+            connect = connectionHelper.connectionClass();
             String query =
                     "SELECT SV.MaSV, DK.DIEMCC,DK.DiemGK,DK.DiemCK,(MH.HeSoCC*DK.DiemCC + MH.HeSoGK*DK.DiemGK + MH.HeSocK*DK.DiemGK)/100 AS DIEMTK  \n" +
                             "FROM LOPTINCHI LTC, SINHVIEN SV,MONHOC MH, DangKi DK\n" +
@@ -154,46 +172,28 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_dangky, menu);
+    public void searchTaiKhoan() {
+        searchSV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-        //Nút Tìm kiếm
-        MenuItem searchItem = menu.findItem(R.id.menuTimkiem);
-        SearchManager searchManager = (SearchManager) nhapdiem_ct_ltc.this.getSystemService(Context.SEARCH_SERVICE);
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(nhapdiem_ct_ltc.this.getComponentName()));
-        }
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            //Bắt kí tự
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Toast.makeText(LopTinChiDaDangKy.this, searchView.getQuery(), Toast.LENGTH_SHORT).show();
-
-                if (searchView.getQuery().toString().isEmpty())
+                if (newText.isEmpty())
                 {
                     getDSSV();
                     diemSinhVienAdapter.notifyDataSetChanged();
                 }
                 else
                 {
-                    timKiemMaSV(searchView.getQuery().toString());
+                    timKiemMaSV(newText);
                     diemSinhVienAdapter.notifyDataSetChanged();
                 }
                 return false;
             }
-            //Bắt kí tự sau khi enter (không enter được khi null)
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
         });
-
-        return super.onCreateOptionsMenu(menu);
     }
 
 

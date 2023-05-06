@@ -63,12 +63,14 @@ public class DangNhap extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else if (mavt.equals("VT2")) {
-                        Intent intent = new Intent(DangNhap.this, nhapdiem.class);
+                        Intent intent = new Intent(DangNhap.this, main_giangvien.class);
+                        intent.putExtra("maGiangVien", matk);
                         startActivity(intent);
                     }
                     else if (mavt.equals("VT3")) {
                         Intent intent = new Intent(DangNhap.this, TrangChuSV.class);
                         intent.putExtra("maSinhVien", matk);
+//                        intent.putExtra("matKhau", mk);
                         startActivity(intent);
                     }
                     else {

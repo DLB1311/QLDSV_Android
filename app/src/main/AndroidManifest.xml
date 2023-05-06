@@ -32,6 +32,7 @@
         <activity android:name=".Qlloptinchi_main" android:exported="true"/>
         <activity android:name=".QlmonhocTaomonhocActivity" android:exported="true"/>
         <activity android:name=".DangNhap" android:exported="true"/>
+        <activity android:name=".main_giangvien" android:exported="true"/>
         <activity android:name=".nhapdiem" android:exported="true"/>
         <activity android:name=".nhapdiem_ct_ltc" android:exported="true"/>
         <activity android:name=".cap_nhat_diem" android:exported="true"/>

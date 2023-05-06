@@ -11,9 +11,36 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main">
+            <Button
+                android:id="@+id/btnClickback"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/main"
+                android:drawableLeft="@drawable/ic_back" />
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchTaiKhoan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:queryHint="Tìm kiếm sinh viên"
+                app:iconifiedByDefault="false"
+                android:background="@drawable/search"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/background2nd"
+                android:paddingBottom="20dp">
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
@@ -22,7 +49,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/baseline_edit_note_24"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -33,11 +61,11 @@
                         android:text="Danh sách sinh viên"
                         android:textColor="@color/primary"
                         android:textStyle="bold"
-                        android:textSize="24dp"
+                        android:textSize="30dp"
                         />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
@@ -47,18 +75,20 @@
                     android:layout_height="wrap_content"
                     android:text="Mã lớp tín chỉ"
                     android:textSize="20dp"
-                    android:width="130dp"/>
+                    android:width="130dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/maLTC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="LTC1"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="24dp"
                     />
             </LinearLayout>
-            <LinearLayout
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
@@ -69,7 +99,9 @@
                     android:layout_height="wrap_content"
                     android:text="Tên môn học:"
                     android:textSize="20dp"
-                    android:width="130dp"/>
+                    android:width="130dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/tenMH"
                     android:layout_width="match_parent"
@@ -80,11 +112,12 @@
                     android:textSize="24dp"
                     />
             </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,6 +125,8 @@
                     android:text="MSSV"
                     android:textSize="20dp"
                     android:width="140dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,6 +134,8 @@
                     android:text="CC"
                     android:textSize="20dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -106,6 +143,8 @@
                     android:text="GK"
                     android:textSize="20dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -113,6 +152,8 @@
                     android:text="CK"
                     android:textSize="20dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,6 +161,8 @@
                     android:text="Điểm TK"
                     android:textSize="20dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
                     />
             </LinearLayout>
             <ListView
