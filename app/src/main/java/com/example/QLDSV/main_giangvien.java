@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class main_giangvien extends AppCompatActivity {
-    Button btnQlDiem, btnDangXuat;
+    Button btnQlDiem, btnThongBao, btnDangXuat;
 
     Connection conn = null;
 
@@ -48,6 +48,16 @@ public class main_giangvien extends AppCompatActivity {
                 finish();
             }
         });
+        btnThongBao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(main_giangvien.this, ThemThongBao.class);
+                intent.putExtra("maGiangVien", maGV);
+                intent.putExtra("vaiTro", "GV");
+                startActivity(intent);
+                finish();
+            }
+        });
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +70,7 @@ public class main_giangvien extends AppCompatActivity {
 
     private void setControl() {
         btnQlDiem = findViewById(R.id.btnQLDiem);
+        btnThongBao = findViewById(R.id.btnThongBao);
         btnDangXuat = findViewById(R.id.btnDangXuat);
         txtTentk = findViewById(R.id.tentk);
     }

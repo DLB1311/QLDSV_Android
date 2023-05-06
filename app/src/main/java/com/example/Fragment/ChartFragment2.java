@@ -2,6 +2,7 @@ package com.example.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class ChartFragment2 extends Fragment {
 
         List<Entry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
-        labels.add("");
+
         try {
             Connection conn = DatabaseManager.getConnection();
             String sql ="SELECT LopTinChi.NamHoc, LopTinChi.HocKi, AVG((DangKi.DiemCC * MonHoc.HeSoCC + DangKi.DiemGK * MonHoc.HeSoGK + DangKi.DiemCK * MonHoc.HeSoCK) / (MonHoc.HeSoCC + MonHoc.HeSoGK + MonHoc.HeSoCK)) AS DiemTBHK\n" +
@@ -57,7 +58,7 @@ public class ChartFragment2 extends Fragment {
                     "ORDER BY CAST(SUBSTRING(LopTinChi.NamHoc, 1, 4) AS INT), LopTinChi.HocKi";
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
-            int i=1;
+            int i=0;
             while (rs.next()) {
                 String namHoc = rs.getString("NamHoc");
                 String namHocCut = namHoc.substring(0, 4);
@@ -73,15 +74,12 @@ public class ChartFragment2 extends Fragment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (labels.size() < 4) {
-            chart.getXAxis().setLabelCount(labels.size(), true);
+
+            chart.getXAxis().setLabelCount(labels.size());
             chart.getXAxis().setGranularity(1f);
             chart.getXAxis().setGranularityEnabled(true);
             chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        }
-        else {
-            chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        }
+
         if (entries.size() > 1) {
 
             // Tạo đường dữ liệu cho biểu đồ
@@ -116,14 +114,9 @@ public class ChartFragment2 extends Fragment {
 
 // Cập nhật biểu đồ
             chart.invalidate();
-
         } else {
             chart.getXAxis().setValueFormatter(null);
         }
-
         return rootView;
     }
-
-
-
 }

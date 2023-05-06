@@ -87,5 +87,32 @@
                 android:drawableTop="@drawable/ic_loptinchi"
                 android:backgroundTint="@color/white"/>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp">
+            <Button
+                android:id="@+id/btnThongBao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/baseline_notifications_24_primary"
+                android:padding="10dp"
+                android:text="Thông báo"
+                android:textColor="@color/primary"
+                />
+            <Button
+                android:id="@+id/btnDangXuat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/baseline_logout_24_primary"
+                android:padding="10dp"
+                android:text="Đăng xuất"
+                android:textColor="@color/main" />
+        </TableRow>
     </TableLayout>
 </RelativeLayout>

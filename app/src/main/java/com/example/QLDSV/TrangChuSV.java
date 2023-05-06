@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.bumptech.glide.Glide;
 import android.content.Intent;
 import com.example.QLDSV.MyAppGlideModule;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class TrangChuSV extends AppCompatActivity {
 
@@ -251,12 +253,12 @@ public class TrangChuSV extends AppCompatActivity {
 
             while (rs.next()) {
                 String imagePath = rs.getString("HinhAnh");
+                Log.d("TAG", "imghinhsvbtn: "+imagePath);
+                Picasso.get().load(imagePath).into(imageView);
 
-                Glide.with(imageView.getContext())
-                        .load(imagePath)
-                        .into(imageView);
-
-
+//                Glide.with(imageView.getContext())
+//                        .load(imagePath)
+//                        .into(imageView);
             }
             rs.close();
             statement.close();
