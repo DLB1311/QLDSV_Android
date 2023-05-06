@@ -1,11 +1,14 @@
 package com.example.QLDSV;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.Database.DatabaseManager;
 import com.example.Objects.Semester;
@@ -41,6 +45,7 @@ public class ResultViewActivity extends AppCompatActivity {
     ArrayList<SubjectScore> unfilteredSSList;
     String maSinhVien;
     ImageButton btnBack;
+    SwipeRefreshLayout refreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,7 @@ public class ResultViewActivity extends AppCompatActivity {
         edtScoreFilter = findViewById(R.id.edit_search_trans);
         spnSemester = findViewById(R.id.semester_spinner);
         btnBack = findViewById(R.id.btn_back);
+        refreshLayout = findViewById(R.id.learning_result_container);
     }
     private void setEvent(){
         setSpnSemesterEvent();
@@ -73,6 +79,7 @@ public class ResultViewActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if(i == EditorInfo.IME_ACTION_DONE){
+                    hideKeyboard(ResultViewActivity.this);
                     filterTableByText(edtScoreFilter.getText().toString());
                     return true;
                 }
@@ -88,12 +95,19 @@ public class ResultViewActivity extends AppCompatActivity {
             }
         });
 
+        refreshLayout.setDistanceToTriggerSync(300);
+        refreshLayout.setOnRefreshListener(() -> {
+            getData();
+            recyclerView.setAdapter(new TableViewAdapter(ResultViewActivity.this, listSubjectScore));
+            refreshLayout.setRefreshing(false);
+        });
     }
     private void setBtnFilterEvent(){
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 filterTableByText(edtScoreFilter.getText().toString());
+                hideKeyboard(ResultViewActivity.this);
             }
         });
     }
@@ -133,9 +147,9 @@ public class ResultViewActivity extends AppCompatActivity {
             Log.d("semester",strSemester);
             listSemester.add(strSemester);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listSemester);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnSemester.setAdapter(adapter);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listSemester);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnSemester.setAdapter(adapter);
 
         //set spinner event
         spnSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -166,6 +180,7 @@ public class ResultViewActivity extends AppCompatActivity {
         int termNum, fstSchoolYear, sndSchoolYear, creditHours;
         try {
             if(conn != null){
+                maSinhVien = "SV1";
                 PreparedStatement ps = conn.prepareStatement("Select * from GETSTUDENTINFO('"+maSinhVien+"')");
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
@@ -229,5 +244,12 @@ public class ResultViewActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new TableViewAdapter(ResultViewActivity.this, listSubjectScore));
+    }
+    private void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

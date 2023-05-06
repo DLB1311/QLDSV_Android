@@ -92,7 +92,16 @@ public class ThemThongBao extends AppCompatActivity {
                 }else if(opt == 3 ){
                     themThongBaoChoMotSinhVien(etTieuDe.getText().toString(), etNoiDung.getText().toString(),currentDate.toString(), maGV,cbSinhVien.getText().toString());
                 }
-
+                AlertDialog.Builder bulider = new AlertDialog.Builder(ThemThongBao.this);
+                bulider.setMessage("Thêm thông báo thành công");
+                bulider.setCancelable(true);
+                bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = bulider.create();
+                alert.show();
             }
         });
 

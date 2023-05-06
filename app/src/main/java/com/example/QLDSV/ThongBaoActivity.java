@@ -28,7 +28,7 @@ public class ThongBaoActivity extends AppCompatActivity {
     ImageButton btnBack;
 
     Button btnThoat;
-
+    String maSinhVien;
 
     int vitri=-1;
 
@@ -58,6 +58,7 @@ public class ThongBaoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ThongBaoActivity.this, TrangChuSV.class );
+                intent.putExtra("maSinhVien", maSinhVien);
                 startActivity(intent);
             }
         });
@@ -65,7 +66,7 @@ public class ThongBaoActivity extends AppCompatActivity {
     private void AddItem() {
         try {
             Intent intent = getIntent();
-            String maSinhVien = intent.getStringExtra("maSinhVien");
+            maSinhVien = intent.getStringExtra("maSinhVien");
 
             Connection conn = DatabaseManager.getConnection();
 

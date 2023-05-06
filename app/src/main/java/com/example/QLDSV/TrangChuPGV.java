@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TrangChuPGV extends AppCompatActivity {
     Button btnMonhoc;
+
     Button btnLoptinchi;
 
     Button btnTaiKhoanSV;
@@ -17,6 +18,8 @@ public class TrangChuPGV extends AppCompatActivity {
     Button btnDangXuat, btnThongBao;
 
     String maGV = "";
+
+    Button btnThemThongBao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,7 @@ public class TrangChuPGV extends AppCompatActivity {
                 finish();
             }
         });
+
         btnThongBao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,8 +76,6 @@ public class TrangChuPGV extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TrangChuPGV.this, DangNhap.class);
                 startActivity(intent);
-                finish();
-            }
-        });
+            }});
     }
 }
