@@ -50,7 +50,7 @@ public class DangKyLopTinChi extends AppCompatActivity {
     DangKyLopTinChiAdapter dangKyLopTinChiAdapter;
     LopTinChiDaDangKyAdapter lopTinChiDaDangKyAdapter;
     int vitri=-1,vitriNienKhoa=0, vitriHocKy=0;
-    Button nutLuuDangKy;
+    Button nutLuuDangKy, nutTroVe;
     Context context;
     SearchView searchView = null;
     public static ProgressBar thanhPG;
@@ -154,6 +154,14 @@ public class DangKyLopTinChi extends AppCompatActivity {
                 ThongBaoLuu(DangKyLopTinChi.this,view);
             }
         });
+        nutTroVe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LopTinChiDaDangKy.class);
+                intent.putExtra("maSinhVien", MaSinhVien);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     //Menu
@@ -207,6 +215,7 @@ public class DangKyLopTinChi extends AppCompatActivity {
         arrDangKyLopTinChi = new ArrayList<>();
         nutLuuDangKy = (Button) findViewById(R.id.buttonLuuDangKy);
         thanhPG = (ProgressBar) findViewById(R.id.progressBar);
+        nutTroVe = (Button) findViewById(R.id.huy_dkltc);
     }
 
     private void AddItem() {

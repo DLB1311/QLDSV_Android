@@ -45,7 +45,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
     ObjectLopTinChiDaDangKy objectLopTinChiDaDangKy;
     LopTinChiDaDangKyAdapter lopTinChiDaDangKyAdapter;
     int vitri=-1, vitriNienKhoa=0, vitriHocKy=0;
-    Button nutCapNhatDangKy;
+    Button nutCapNhatDangKy, nutTroVe;
 
     Context context;
     SearchView searchView = null;
@@ -147,6 +147,14 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
                 }, 2000);   //2 seconds
             }
         });
+        nutTroVe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TrangChuSV.class);
+                intent.putExtra("maSinhVien", MaSinhVien);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     //Menu
@@ -201,6 +209,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
         arrLopTinChiDaDangKy = new ArrayList<>();
         nutCapNhatDangKy = (Button) findViewById(R.id.buttonCapNhatDangKy);
         thanhPG = (ProgressBar) findViewById(R.id.progressBar);
+        nutTroVe = (Button) findViewById(R.id.trove_ltcddk);
     }
 
     private void AddItem() {

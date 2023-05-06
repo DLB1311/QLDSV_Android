@@ -156,10 +156,29 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <Button
+        android:id="@+id/trove_ltcddk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:layout_marginStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:drawableTop="@drawable/baseline_arrow_back_ios_24"
+        android:paddingLeft="38dp"
+        app:cornerRadius="12dp"
+        android:textColor="@color/white"
+        android:backgroundTint="#0E407D"
 
+        />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <Button
             android:id="@+id/buttonCapNhatDangKy"
             android:layout_width="match_parent"
@@ -188,4 +207,6 @@
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="#0E407D" />
     </RelativeLayout>
+</LinearLayout>
+
 </LinearLayout>

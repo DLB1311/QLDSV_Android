@@ -169,10 +169,31 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp" />
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/huy_dkltc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layout_marginStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:layout_centerVertical="true"
+            android:text="x"
+
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            android:textColor="@color/white"
+            android:backgroundTint="#0E407D"
+            />
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <Button
             android:id="@+id/buttonLuuDangKy"
             android:layout_width="match_parent"
@@ -201,5 +222,6 @@
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="#0E407D" />
     </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
