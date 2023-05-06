@@ -43,7 +43,7 @@ public class DangKyLopTinChi extends AppCompatActivity {
     Spinner cbNienKhoa, cbHocKy;
     ArrayList<String> arrNienKhoa = new ArrayList<String>();
     ArrayList<String> arrHocKy = new ArrayList<String>();
-
+    String  MaSinhVien;
     ListView listviewDK;
     ArrayList<ObjectDangKyLopTinChi> arrDangKyLopTinChi;
     ObjectDangKyLopTinChi objectDangKyLopTinChi;
@@ -63,6 +63,9 @@ public class DangKyLopTinChi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky_lop_tin_chi);
         context=this;
+        Intent intent = getIntent();
+        MaSinhVien = intent.getStringExtra("maSinhVien");
+
         //setTheme(android.R.style.Theme_Holo);
 //        ActionBar actionBar;
 //        actionBar = getSupportActionBar();
@@ -433,6 +436,8 @@ public class DangKyLopTinChi extends AppCompatActivity {
         thongbao.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
+
+
                 nutLuuDangKy.setVisibility(View.INVISIBLE);
                 thanhPG.setVisibility(View.VISIBLE);
                 animation.start();
@@ -445,6 +450,9 @@ public class DangKyLopTinChi extends AppCompatActivity {
                         UpdateDangKiLTC();
                         queryUpdateDangKyLTC="";
                         Intent intent = new Intent(v.getContext(), LopTinChiDaDangKy.class);
+
+                        intent.putExtra("maSinhVien", MaSinhVien);
+
                         v.getContext().startActivity(intent);
                     }
                 }, 2000);
