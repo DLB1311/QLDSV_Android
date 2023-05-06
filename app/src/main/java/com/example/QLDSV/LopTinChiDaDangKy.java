@@ -1,5 +1,7 @@
 package com.example.QLDSV;
 
+import static android.content.ContentValues.TAG;
+
 import android.animation.ObjectAnimator;
 import android.app.SearchManager;
 import android.content.Context;
@@ -52,8 +54,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
 
     public static ObjectAnimator animation = ObjectAnimator.ofInt(thanhPG, "progress", 0, 100);
 
-    public static String MaSinhVien="";
-
+    public static String MaSinhVien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
         context=this;
         Intent intent = getIntent();
         MaSinhVien = intent.getStringExtra("maSinhVien");
+
         //setTheme(android.R.style.Theme_Holo);
 //        ActionBar actionBar;
 //        actionBar = getSupportActionBar();
@@ -124,6 +126,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
             public void onClick(View view) {
 //                for(int i=0; i<DangKyLopTinChiAdapter.dsLTCduocchon.size(); i++)
 //                    Toast.makeText(context,arrLopTinChiDaDangKy.get(Integer.valueOf(LopTinChiDaDangKyAdapter.dsLTCduocchon.get(i))).getMaLTC(), Toast.LENGTH_SHORT).show();
+
                 nutCapNhatDangKy.setVisibility(View.INVISIBLE);
                 thanhPG.setVisibility(View.VISIBLE);
                 animation.start();
@@ -133,9 +136,13 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
                     public void run() {
                         cbNienKhoa.setSelection(0);
                         cbHocKy.setSelection(0);
+
                         xuatDSLTCDDK();
                         Intent intent = new Intent(view.getContext(), DangKyLopTinChi.class);
+                        intent.putExtra("maSinhVien", MaSinhVien);
                         startActivity(intent);
+                        thanhPG.setVisibility(View.INVISIBLE);
+                        nutCapNhatDangKy.setVisibility(View.VISIBLE);
                     }
                 }, 2000);   //2 seconds
             }
