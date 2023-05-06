@@ -10,19 +10,42 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TrangChuPGV extends AppCompatActivity {
     Button btnMonhoc;
-    Button btnLoptinchi , btnThemThongBao;
+
+    Button btnLoptinchi;
+
+    Button btnTaiKhoanSV;
+
+    Button btnDangXuat, btnThongBao;
+
+    String maGV = "";
+
+    Button btnThemThongBao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trangchu_pgv);
 
+        Intent intent = getIntent();
+        maGV = intent.getStringExtra("maGiangVien");
+
         btnMonhoc = findViewById(R.id.btnMonhoc);
+        btnTaiKhoanSV = findViewById(R.id.btnTaiKhoanSV);
+        btnDangXuat= findViewById(R.id.btnDangXuat);
+        btnThongBao = findViewById(R.id.btnThongBao);
         btnMonhoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("Btn", "Bam nut ne");
 
                 Intent intent = new Intent(TrangChuPGV.this, QlmonhocMainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnTaiKhoanSV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TrangChuPGV.this, Qltaikhoansv.class);
                 startActivity(intent);
                 finish();
             }
@@ -38,14 +61,21 @@ public class TrangChuPGV extends AppCompatActivity {
             }
         });
 
-        btnThemThongBao= findViewById(R.id.btnThemThongBao);
-        btnThemThongBao.setOnClickListener(new View.OnClickListener() {
+        btnThongBao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TrangChuPGV.this, ThemThongBao.class);
+                intent.putExtra("maGiangVien", maGV);
+                intent.putExtra("vaiTro", "PGV");
                 startActivity(intent);
                 finish();
             }
         });
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TrangChuPGV.this, DangNhap.class);
+                startActivity(intent);
+            }});
     }
 }

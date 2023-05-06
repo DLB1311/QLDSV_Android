@@ -28,42 +28,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TrangChuSV"
-            android:exported="true" />
-        <activity
-            android:name=".Qlloptinchi_detail"
-            android:exported="true" />
-        <activity
-            android:name=".Qlloptinchi_add"
-            android:exported="true" />
-        <activity
-            android:name=".Qlloptinchi_main"
-            android:exported="true" />
-        <activity
-            android:name=".QlmonhocTaomonhocActivity"
-            android:exported="true" />
-        <activity
-            android:name=".DangNhap"
-            android:exported="true" />
-        <activity
-            android:name=".nhapdiem"
-            android:exported="true" />
-        <activity
-            android:name=".nhapdiem_ct_ltc"
-            android:exported="true" />
-        <activity
-            android:name=".cap_nhat_diem"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".TrangChuSV" android:exported="true"/>
+        <activity android:name=".Qlloptinchi_detail" android:exported="true"/>
+        <activity android:name=".Qlloptinchi_add" android:exported="true"/>
+        <activity android:name=".Qlloptinchi_main" android:exported="true"/>
+        <activity android:name=".QlmonhocTaomonhocActivity" android:exported="true"/>
+        <activity android:name=".DangNhap" android:exported="true"/>
+        <activity android:name=".main_giangvien" android:exported="true"/>
+        <activity android:name=".nhapdiem" android:exported="true"/>
+        <activity android:name=".nhapdiem_ct_ltc" android:exported="true"/>
+        <activity android:name=".cap_nhat_diem" android:exported="true"/>
+        <activity android:name=".Doimatkhausv" android:exported="true"/>
         <activity
             android:name=".QlmonhocMainActivity"
             android:exported="true" />
@@ -98,6 +73,15 @@
             android:exported="true"></activity>
         <activity
             android:name=".TrangChuPGV"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

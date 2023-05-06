@@ -16,7 +16,7 @@ public class connectionHelper {
         ip = "10.0.2.2";
         db = "qldiem_PTCUDDD";
         username = "SA";
-        password = "131101";
+        password = "123";
         port = "1433";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

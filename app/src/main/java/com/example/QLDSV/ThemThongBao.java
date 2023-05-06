@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,22 +32,24 @@ import java.util.List;
 public class ThemThongBao extends AppCompatActivity {
 
     Spinner cbOption;
-    Button btnThem;
+    Button btnThem, btnClickback;
     EditText etTieuDe,etNoiDung;
     LinearLayout loChonLop ,loChonSV;
     AutoCompleteTextView cbLop,cbSinhVien;
     ArrayList<String> arrOption = new ArrayList<String>();
-    String maGV="GV1";
+    String maGV="", vaiTro="";
     int opt =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_thong_bao);
+        Intent intent = getIntent();
+        maGV = intent.getStringExtra("maGiangVien");
+        vaiTro = intent.getStringExtra("vaiTro");
+
         setControl();
         addItem();
         setEvent();
-
-
     }
 
     private void setEvent() {
@@ -102,6 +105,21 @@ public class ThemThongBao extends AppCompatActivity {
             }
         });
 
+        btnClickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(vaiTro.equals("PGV")){
+                    Intent intent = new Intent(ThemThongBao.this, TrangChuPGV.class);
+                    intent.putExtra("maGiangVien", maGV);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(ThemThongBao.this, main_giangvien.class);
+                    intent.putExtra("maGiangVien", maGV);
+                    startActivity(intent);
+                }
+            }
+
+        });
     }
 
     private void setControl() {
@@ -113,12 +131,18 @@ public class ThemThongBao extends AppCompatActivity {
         btnThem=  findViewById(R.id.btn_themthongbao);
         etTieuDe=  findViewById(R.id.et_tieude);
         etNoiDung=  findViewById(R.id.et_noidung);
+        btnClickback = findViewById(R.id.btnClickback);
     }
 
     private void addItem() {
-        arrOption.add("Toàn Bộ");
-        arrOption.add("Lớp");
-        arrOption.add("Sinh Viên");
+        if(vaiTro.equals("PGV")) {
+            arrOption.add("Toàn Bộ");
+            arrOption.add("Lớp");
+            arrOption.add("Sinh Viên");
+        }else{
+            arrOption.add("Lớp");
+            arrOption.add("Sinh Viên");
+        }
         ArrayAdapter arrayAdapterOption = new ArrayAdapter(this,android.R.layout.simple_spinner_item,arrOption);
         cbOption.setAdapter(arrayAdapterOption);
         ArrayAdapter<String> adaptermasv = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getAllMaSV()); // Tạo ArrayAdapter
@@ -127,8 +151,6 @@ public class ThemThongBao extends AppCompatActivity {
         ArrayAdapter<String> adaptermalop = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getAllMaLop()); // Tạo ArrayAdapter
         cbLop.setAdapter(adaptermalop);
         cbLop.setThreshold(0);
-
-
     }
 
     public void themThongBaoChoTatCaSinhVien(String tieuDe, String noiDung, String ngayGui, String maGV) {
@@ -154,6 +176,7 @@ public class ThemThongBao extends AppCompatActivity {
                 statementSinhVienThongBao.setInt(1, maTB);
                 statementSinhVienThongBao.executeUpdate();
                 statementSinhVienThongBao.close();
+                alertSuccess("Thêm thông báo thành công!");
             } else {
                 throw new SQLException("Inserting thong bao failed, no ID obtained.");
             }
@@ -198,6 +221,7 @@ public class ThemThongBao extends AppCompatActivity {
                 statementSinhVienThongBao.setString(2, maLop);
                 statementSinhVienThongBao.executeUpdate();
                 statementSinhVienThongBao.close();
+                alertSuccess("Thêm thông báo thành công!");
 
                 conn.close();
             } catch (SQLException e) {
@@ -209,6 +233,7 @@ public class ThemThongBao extends AppCompatActivity {
         try {
             Connection conn = DatabaseManager.getConnection();
             String sql = "INSERT INTO ThongBao (TieuDe, NoiDung, NgayGui, MaGV) VALUES (?, ?, ?, ?)";
+            System.out.println(sql);
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, tieuDe);
             statement.setString(2, noiDung);
@@ -237,9 +262,28 @@ public class ThemThongBao extends AppCompatActivity {
 
             statement.close();
             conn.close();
+
+            alertSuccess("Thêm thông báo thành công!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void alertSuccess(String content) {
+        AlertDialog.Builder bulider = new AlertDialog.Builder(ThemThongBao.this);
+        bulider.setMessage(content);
+        bulider.setCancelable(true);
+        bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                Intent intent = new Intent(ThemThongBao.this, main_giangvien.class);
+                intent.putExtra("maGiangVien", main_giangvien.maGV);
+                startActivity(intent);
+                finish();
+            }
+        });
+        AlertDialog alert = bulider.create();
+        alert.show();
     }
 
     private List<String> getAllMaSV() {

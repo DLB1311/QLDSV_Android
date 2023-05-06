@@ -54,6 +54,7 @@
             android:layout_gravity="center_vertical"
             android:padding="5dp">
             <Button
+                android:id="@+id/btnTaiKhoanSV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -92,37 +93,26 @@
             android:layout_gravity="center_vertical"
             android:padding="5dp">
             <Button
-                android:id="@+id/btnThemThongBao"
+                android:id="@+id/btnThongBao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/baseline_notifications_24_primary"
                 android:padding="10dp"
-                android:text="Thêm thông báo"
-                android:textColor="@color/main"
-                android:drawableTop="@drawable/baseline_edit_notifications_24"
-                android:backgroundTint="@color/white"/>
+                android:text="Thông báo"
+                android:textColor="@color/primary"
+                />
             <Button
+                android:id="@+id/btnDangXuat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
                 android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/baseline_logout_24_primary"
                 android:padding="10dp"
-                android:text=""
-                android:textColor="@color/main"
-                android:drawableTop="@drawable/baseline_notifications_none_24"
-                android:backgroundTint="@color/white"/>
-            <Button
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:padding="10dp"
-                android:text=""
-                android:textColor="@color/main"
-                android:drawableTop="@drawable/baseline_notifications_none_24"
-                android:backgroundTint="@color/white"/>
+                android:text="Đăng xuất"
+                android:textColor="@color/main" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>
