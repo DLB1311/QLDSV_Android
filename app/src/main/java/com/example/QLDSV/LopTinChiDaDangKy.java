@@ -52,13 +52,15 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
 
     public static ObjectAnimator animation = ObjectAnimator.ofInt(thanhPG, "progress", 0, 100);
 
-    public static String MaSinhVien="SV3";
+    public static String MaSinhVien="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lop_tin_chi_da_dang_ky);
         context=this;
+        Intent intent = getIntent();
+        MaSinhVien = intent.getStringExtra("maSinhVien");
         //setTheme(android.R.style.Theme_Holo);
 //        ActionBar actionBar;
 //        actionBar = getSupportActionBar();

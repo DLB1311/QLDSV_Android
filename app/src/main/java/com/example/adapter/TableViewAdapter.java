@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -38,7 +39,7 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewHolder> {
     @NonNull
     @Override
     public TableViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TableViewHolder(LayoutInflater.from(context).inflate(R.layout.xmpl2_item_view, parent, false));
+        return new TableViewHolder(LayoutInflater.from(context).inflate(R.layout.result_table_item_view, parent, false));
     }
 
     @Override
@@ -86,6 +87,10 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewHolder> {
                 @Override
                 public void onClick(View view) {
                     popupView = setDialogContent(popupView, listRowContent.get(tempIndex-1));
+                    ImageButton closeButton = popupView.findViewById(R.id.close_button);
+                    closeButton.setOnClickListener(view1 -> {
+                        myDialog.dismiss();
+                    });
                     myDialog.show();
                 }
             });
@@ -134,12 +139,8 @@ public class TableViewAdapter extends RecyclerView.Adapter<TableViewHolder> {
         int seRatioInt = (int) (subjectScore.getSeRatio() * 100) ;
         int finalExamRatioInt = (int) (subjectScore.getFnlExamRatio() * 100) ;
         int attendScoreInt = (int) subjectScore.getAttendScore();
-//        String sndFnlExamScoreInt = subjectScore.getSndFnlExamScore() == (float) 0.0
-//                ? "" : strOf(subjectScore.getSndFnlExamScore());
-//        String thrdFnlExamScoreInt = subjectScore.getThrdFnlExamScore() == (float) 0.0
-//                ? "" : strOf(subjectScore.getThrdFnlExamScore());
-        String sndFnlExamScoreInt = isNumberEmpty(subjectScore.getSndFnlExamScore());
-        String thrdFnlExamScoreInt = isNumberEmpty(subjectScore.getThrdFnlExamScore());
+//        String sndFnlExamScoreInt = isNumberEmpty(subjectScore.getSndFnlExamScore());
+//        String thrdFnlExamScoreInt = isNumberEmpty(subjectScore.getThrdFnlExamScore());
 
 
         subjectId.setText(subjectScore.getSubjectId());

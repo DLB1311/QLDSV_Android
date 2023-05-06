@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TrangChuPGV extends AppCompatActivity {
     Button btnMonhoc;
-    Button btnLoptinchi;
+    Button btnLoptinchi , btnThemThongBao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +33,16 @@ public class TrangChuPGV extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TrangChuPGV.this, Qlloptinchi_main.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnThemThongBao= findViewById(R.id.btnThemThongBao);
+        btnThemThongBao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TrangChuPGV.this, ThemThongBao.class);
                 startActivity(intent);
                 finish();
             }
