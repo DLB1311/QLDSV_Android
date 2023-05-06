@@ -160,21 +160,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+
     <Button
         android:id="@+id/trove_ltcddk"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
         android:layout_marginStart="10dp"
+        android:layout_weight="3"
+        android:backgroundTint="#0E407D"
+        android:drawableTop="@drawable/baseline_arrow_back_ios_24"
+        android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="20dp"
-        android:drawableTop="@drawable/baseline_arrow_back_ios_24"
-        android:paddingLeft="38dp"
-        app:cornerRadius="12dp"
         android:textColor="@color/white"
-        android:backgroundTint="#0E407D"
+        app:cornerRadius="12dp"
 
         />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
