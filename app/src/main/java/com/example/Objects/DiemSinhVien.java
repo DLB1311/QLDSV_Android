@@ -1,6 +1,6 @@
 package com.example.Objects;
 
-public class ObjectDiemSinhVien {
+public class DiemSinhVien {
     private int id;
     private String MaLTC, MaSV;
 
@@ -8,10 +8,10 @@ public class ObjectDiemSinhVien {
 
     private boolean Huy;
 
-    public ObjectDiemSinhVien() {
+    public DiemSinhVien() {
     }
 
-    public ObjectDiemSinhVien(int id, String maLTC, String maSV, Float diemCC, Float diemGK, Float diemCK, Float diemTK, boolean huy) {
+    public DiemSinhVien(int id, String maLTC, String maSV, Float diemCC, Float diemGK, Float diemCK, Float diemTK, boolean huy) {
         this.id = id;
         MaLTC = maLTC;
         MaSV = maSV;

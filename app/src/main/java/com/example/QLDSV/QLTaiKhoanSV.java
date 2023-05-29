@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.Database.ConnectionHelper;
+import com.example.Database.DatabaseManager;
 import  com.example.adapter.*;
 import com.example.Objects.TaiKhoan;
 import  com.example.Objects.Lop;
@@ -26,7 +26,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Qltaikhoansv extends AppCompatActivity {
+public class QLTaiKhoanSV extends AppCompatActivity {
     Button btnClickback;
     Button btnThemTaiKhoan , btnXoaTaiKhoan;
     Connection conn;
@@ -66,7 +66,7 @@ public class Qltaikhoansv extends AppCompatActivity {
                     listTK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(Qltaikhoansv.this, Taikhoansv_ct.class);
+                            Intent intent = new Intent(QLTaiKhoanSV.this, TaiKhoanSV_CT.class);
                             Log.i("MaMh", list.get(i).getMatk());
                             intent.putExtra("maTK", list.get(i).getMatk());
                             startActivity(intent);
@@ -78,7 +78,7 @@ public class Qltaikhoansv extends AppCompatActivity {
                     listTK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(Qltaikhoansv.this, Taikhoansv_ct.class);
+                            Intent intent = new Intent(QLTaiKhoanSV.this, TaiKhoanSV_CT.class);
                             intent.putExtra("maTK", list.get(i).getMatk());
                             startActivity(intent);
                         }
@@ -96,7 +96,7 @@ public class Qltaikhoansv extends AppCompatActivity {
         btnClickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Qltaikhoansv.this, TrangChuPGV.class);
+                Intent intent = new Intent(QLTaiKhoanSV.this, TrangChuPGV.class);
                 startActivity(intent);
             }
 
@@ -106,7 +106,7 @@ public class Qltaikhoansv extends AppCompatActivity {
         btnThemTaiKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Qltaikhoansv.this, Taotaikhoansv.class);
+                Intent intent = new Intent(QLTaiKhoanSV.this, TaoTaiKhoanSV.class);
                 startActivity(intent);
                 finish();
             }
@@ -138,8 +138,7 @@ public class Qltaikhoansv extends AppCompatActivity {
         listSnpinnerLop.clear();
         listSnpinnerLop.add("Chọn lớp");
         try {
-            ConnectionHelper c = new ConnectionHelper();
-            conn = c.connectionHelper();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "select * from Lop";
                 Statement st = conn.createStatement();
@@ -161,8 +160,7 @@ public class Qltaikhoansv extends AppCompatActivity {
     public void loadListTaiKhoan() {
         list.clear();
         try {
-            ConnectionHelper c = new ConnectionHelper();
-            conn = c.connectionHelper();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "select MaTk, HoTen from TaiKhoan tk, SinhVien sv where tk.MaTk = sv. MaSV and tk.MaVaitro = 'VT3' ";
                 Statement st = conn.createStatement();
@@ -197,8 +195,7 @@ public class Qltaikhoansv extends AppCompatActivity {
     public void loadLop() {
         listLop.clear();
         try {
-            ConnectionHelper c = new ConnectionHelper();
-            conn = c.connectionHelper();
+            conn = DatabaseManager.getConnection();
             if (conn != null) {
                 String query = "SELECT * FROM Lop";
                 Statement st = conn.createStatement();
@@ -218,8 +215,7 @@ public class Qltaikhoansv extends AppCompatActivity {
     public void loadListTKTheoLop(String str) {
         list.clear();
         try {
-            ConnectionHelper c = new ConnectionHelper();
-            conn = c.connectionHelper();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT MaTk, HoTen FROM TaiKhoan tk, SinhVien sv where tk.MaTk = sv. MaSV and tk.MaVaitro = 'VT3' and sv.MaLop = '"+str+"'";
                 Statement st = conn.createStatement();
@@ -250,8 +246,7 @@ public class Qltaikhoansv extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 ArrayList<TaiKhoan> listTKtemp = new ArrayList<>();
                 try {
-                    ConnectionHelper c = new ConnectionHelper();
-                    conn = c.connectionHelper();
+                    conn = DatabaseManager.getConnection();
                     if(conn != null) {
                         String query = "select MaTk, HoTen from TaiKhoan tk, SinhVien sv where tk.MaTk = sv. MaSV and tk.MaVaitro = 'VT3'";
                         Statement st = conn.createStatement();
@@ -283,7 +278,7 @@ public class Qltaikhoansv extends AppCompatActivity {
 
 
     public void XoaTaiKhoan(int i) {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Qltaikhoansv.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(QLTaiKhoanSV.this);
         bulider.setMessage("Xác nhận xoá tài khoản này?");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Yes",new DialogInterface.OnClickListener() {

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.Objects.ObjectDiemSinhVien;
+import com.example.Objects.DiemSinhVien;
 import com.example.QLDSV.R;
 
 import java.util.ArrayList;
@@ -18,16 +18,16 @@ public class DiemSinhVienAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private LayoutInflater layoutInflater;
-    ArrayList<ObjectDiemSinhVien> listDiemSV;
-    private ObjectDiemSinhVien objectDiemSinhVien;
+    ArrayList<DiemSinhVien> listDiemSV;
+    private DiemSinhVien objectDiemSinhVien;
 
-    public DiemSinhVienAdapter(Context context, ArrayList<ObjectDiemSinhVien> listDiemSV) {
+    public DiemSinhVienAdapter(Context context, ArrayList<DiemSinhVien> listDiemSV) {
         this.context = context;
         this.listDiemSV = listDiemSV;
         layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public DiemSinhVienAdapter(Context context, int layout, ArrayList<ObjectDiemSinhVien> listDiemSV) {
+    public DiemSinhVienAdapter(Context context, int layout, ArrayList<DiemSinhVien> listDiemSV) {
         this.context = context;
         this.layout=layout;
         this.listDiemSV=listDiemSV;

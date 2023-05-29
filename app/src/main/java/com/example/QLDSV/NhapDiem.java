@@ -1,38 +1,30 @@
 package com.example.QLDSV;
 
-import android.animation.ObjectAnimator;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.Database.ConnectionHelper;
-import com.example.Objects.ObjectLopTinChiNhapDiem;
-import com.example.Objects.TaiKhoan;
+import com.example.Database.DatabaseManager;
+import com.example.Objects.LopTinChiNhapDiem;
 import com.example.adapter.LopTinChiNhapDiemAdapter;
-import com.example.adapter.TaiKhoanAdapter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class nhapdiem extends AppCompatActivity {
+public class NhapDiem extends AppCompatActivity {
 
     Connection connect;
     String connectionResult="";
@@ -44,8 +36,8 @@ public class nhapdiem extends AppCompatActivity {
 
     Button btnClickback;
     SearchView searchLTC;
-    public static ArrayList<ObjectLopTinChiNhapDiem> arrLopTinChiNhapDiem;
-    ObjectLopTinChiNhapDiem objectLopTinChiNhapDiem;
+    public static ArrayList<LopTinChiNhapDiem> arrLopTinChiNhapDiem;
+    LopTinChiNhapDiem objectLopTinChiNhapDiem;
     LopTinChiNhapDiemAdapter lopTinChiNhapDiemAdapter;
     int vitri=-1, vitriNienKhoa=0, vitriHocKy=0;
 
@@ -79,10 +71,10 @@ public class nhapdiem extends AppCompatActivity {
         listviewLTC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(nhapdiem.this, "Item: "+nhapdiem.arrLopTinChiNhapDiem.get(position).getMaLTC(), Toast.LENGTH_SHORT).show();
-                maLTC_NhapDiem = nhapdiem.arrLopTinChiNhapDiem.get(position).getMaLTC();
-                tenMH_NhapDiem=nhapdiem.arrLopTinChiNhapDiem.get(position).getTenMH();
-                Intent intent = new Intent(nhapdiem.this, nhapdiem_ct_ltc.class);
+                Toast.makeText(NhapDiem.this, "Item: "+ NhapDiem.arrLopTinChiNhapDiem.get(position).getMaLTC(), Toast.LENGTH_SHORT).show();
+                maLTC_NhapDiem = NhapDiem.arrLopTinChiNhapDiem.get(position).getMaLTC();
+                tenMH_NhapDiem= NhapDiem.arrLopTinChiNhapDiem.get(position).getTenMH();
+                Intent intent = new Intent(NhapDiem.this, NhapDiem_CT_LTC.class);
                 intent.putExtra("maGiangVien", MaGiangVien);
                 startActivity(intent);
             }
@@ -122,7 +114,7 @@ public class nhapdiem extends AppCompatActivity {
         btnClickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(nhapdiem.this, main_giangvien.class);
+                Intent intent = new Intent(NhapDiem.this, TrangChuGV.class);
                 intent.putExtra("maGiangVien", MaGiangVien);
                 startActivity(intent);
             }
@@ -174,8 +166,7 @@ public class nhapdiem extends AppCompatActivity {
     private void KhoiTaoNienKhoa(){
         try
         {
-            connectionHelper connectionHelper = new connectionHelper();
-            connect = connectionHelper.connectionClass();
+            connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = "select distinct namhoc, cast(substring(NamHoc,0,5) as int)\n" +
                         "from LopTinChi\n" +
@@ -208,8 +199,7 @@ public class nhapdiem extends AppCompatActivity {
 
     private void getDSLTC() {
     try {
-        connectionHelper connectionHelper = new connectionHelper();
-        connect = connectionHelper.connectionClass();
+        connect = DatabaseManager.getConnection();
 
         if(connect !=null){
             String query = "select ltc.MaLTC, mh.TenMH from LopTinChi ltc\n" +
@@ -233,7 +223,7 @@ public class nhapdiem extends AppCompatActivity {
             int i=0;
             while(rs.next())
             {
-                objectLopTinChiNhapDiem = new ObjectLopTinChiNhapDiem();
+                objectLopTinChiNhapDiem = new LopTinChiNhapDiem();
                 objectLopTinChiNhapDiem.setId(i);
                 objectLopTinChiNhapDiem.setMaLTC(rs.getString(1));
                 objectLopTinChiNhapDiem.setTenMH(rs.getString(2));
@@ -252,8 +242,7 @@ public class nhapdiem extends AppCompatActivity {
 
     public void timKiemLTCNhapDiem(String kitu){
         try {
-            connectionHelper connectionHelper = new connectionHelper();
-            connect = connectionHelper.connectionClass();
+            connect = DatabaseManager.getConnection();
             String query = "select ltc.MaLTC, mh.TenMH from LopTinChi ltc\n" +
                     "join MonHoc MH on ltc.MaMH = MH.MaMH\n" +
                     "join day on ltc.MaLTC = day.MaLTC\n" +
@@ -267,7 +256,7 @@ public class nhapdiem extends AppCompatActivity {
                 int i=0;
                 while(rs.next())
                 {
-                    objectLopTinChiNhapDiem = new ObjectLopTinChiNhapDiem();
+                    objectLopTinChiNhapDiem = new LopTinChiNhapDiem();
                     objectLopTinChiNhapDiem.setId(i);
                     objectLopTinChiNhapDiem.setMaLTC(rs.getString(1));
                     objectLopTinChiNhapDiem.setTenMH(rs.getString(2));

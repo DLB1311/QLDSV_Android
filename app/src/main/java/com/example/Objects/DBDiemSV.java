@@ -27,15 +27,15 @@ public class DBDiemSV extends SQLiteOpenHelper {
 
     }
 
-    public void ThemDL(ObjectDiemSinhVien diem){
+    public void ThemDL(DiemSinhVien diem){
         SQLiteDatabase sqliteDB = getWritableDatabase();
         String sql = "insert into tbDiemSV values(?,?,?)";
         sqliteDB.execSQL(sql, new Object[]{diem.getId(), diem.getMaLTC(), diem.getMaSV(), diem.getDiemCC(),
         diem.getDiemGK(), diem.getDiemGK(), diem.getDiemCK(), diem.getDiemTK(), diem.isHuy()});
     }
 
-    public ArrayList<ObjectDiemSinhVien> HienThiDL(){
-        ArrayList<ObjectDiemSinhVien> data = new ArrayList<>();
+    public ArrayList<DiemSinhVien> HienThiDL(){
+        ArrayList<DiemSinhVien> data = new ArrayList<>();
 
         String sql = "select * from tbDiemSV";
         SQLiteDatabase sqliteDB = getReadableDatabase();
@@ -43,7 +43,7 @@ public class DBDiemSV extends SQLiteOpenHelper {
         Cursor cursor = sqliteDB.rawQuery(sql, null);
         if(cursor.moveToFirst()){
             do {
-                ObjectDiemSinhVien diem = new ObjectDiemSinhVien();
+                DiemSinhVien diem = new DiemSinhVien();
                 diem.setId((cursor.getInt(0)));
                 diem.setMaLTC((cursor.getString(1)));
                 diem.setMaSV((cursor.getString(2)));
@@ -58,7 +58,7 @@ public class DBDiemSV extends SQLiteOpenHelper {
         return data;
     }
 
-    public void SuaDL(ObjectDiemSinhVien diem){
+    public void SuaDL(DiemSinhVien diem){
         SQLiteDatabase sqliteDB = getWritableDatabase();
         String sql = "Update tbDiemSV set DiemCC=?, DiemGK=?,DiemCK=? where id=?";
         sqliteDB.execSQL(sql, new Object[]{diem.getDiemCC(), diem.getDiemGK(), diem.getDiemCK(), diem.getId()});

@@ -1,28 +1,21 @@
 package com.example.Objects;
 
-import android.util.Log;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-public class kehoachGiangDay {
+public class KeHoachGiangDay {
     private String macn;
     private String mamh;
     private int hesogk;
     private int hesock;
 
-    public kehoachGiangDay(String mamh) {
+    public KeHoachGiangDay(String mamh) {
         this.mamh = mamh;
     }
 
-    public kehoachGiangDay(String macn, String mamh) {
+    public KeHoachGiangDay(String macn, String mamh) {
         this.macn = macn;
         this.mamh = mamh;
     }
 
-    public kehoachGiangDay(String macn, String mamh, int hesogk, int hesock) {
+    public KeHoachGiangDay(String macn, String mamh, int hesogk, int hesock) {
         this.macn = macn;
         this.mamh = mamh;
         this.hesogk = hesogk;

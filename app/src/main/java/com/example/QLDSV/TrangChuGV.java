@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class main_giangvien extends AppCompatActivity {
+public class TrangChuGV extends AppCompatActivity {
     Button btnQlDiem, btnThongBao, btnDangXuat;
 
     Connection conn = null;
@@ -42,7 +42,7 @@ public class main_giangvien extends AppCompatActivity {
         btnQlDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(main_giangvien.this, nhapdiem.class);
+                Intent intent = new Intent(TrangChuGV.this, NhapDiem.class);
                 intent.putExtra("maGiangVien", maGV);
                 startActivity(intent);
                 finish();
@@ -51,7 +51,7 @@ public class main_giangvien extends AppCompatActivity {
         btnThongBao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(main_giangvien.this, ThemThongBao.class);
+                Intent intent = new Intent(TrangChuGV.this, ThemThongBao.class);
                 intent.putExtra("maGiangVien", maGV);
                 intent.putExtra("vaiTro", "GV");
                 startActivity(intent);
@@ -61,7 +61,7 @@ public class main_giangvien extends AppCompatActivity {
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(main_giangvien.this, DangNhap.class);
+                Intent intent = new Intent(TrangChuGV.this, DangNhap.class);
                 startActivity(intent);
                 finish();
             }
@@ -77,8 +77,7 @@ public class main_giangvien extends AppCompatActivity {
     public String loadThongTinGV(String matk) {
         String hoTen = "";
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM GiangVien where MAGV = '"+ matk + "'";
                 Statement st = conn.createStatement();

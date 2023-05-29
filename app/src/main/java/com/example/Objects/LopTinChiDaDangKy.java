@@ -1,7 +1,7 @@
 package com.example.Objects;
 
 
-public class ObjectLopTinChiDaDangKy {
+public class LopTinChiDaDangKy {
 
     private int id;
     private String maLTC;
@@ -12,10 +12,10 @@ public class ObjectLopTinChiDaDangKy {
     private String ngayKT;
 
 
-    public ObjectLopTinChiDaDangKy(){
+    public LopTinChiDaDangKy(){
     }
 
-    public ObjectLopTinChiDaDangKy(int id, String maLTC, String tenMH, String nienKhoa, String hocKy, String ngayBD, String ngayKT) {
+    public LopTinChiDaDangKy(int id, String maLTC, String tenMH, String nienKhoa, String hocKy, String ngayBD, String ngayKT) {
         this.id = id;
         this.maLTC = maLTC;
         this.tenMH = tenMH;

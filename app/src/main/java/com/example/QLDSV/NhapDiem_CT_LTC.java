@@ -1,24 +1,21 @@
 package com.example.QLDSV;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.Objects.ObjectDiemSinhVien;
+import com.example.Database.DatabaseManager;
+import com.example.Objects.DiemSinhVien;
 import com.example.adapter.DiemSinhVienAdapter;
 
 import java.sql.Connection;
@@ -26,13 +23,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class nhapdiem_ct_ltc extends AppCompatActivity {
+public class NhapDiem_CT_LTC extends AppCompatActivity {
     SearchView searchSV;
     Connection connect;
     String connectionResult="";
     ListView lvDSSV_LTC;
-    public static ArrayList<ObjectDiemSinhVien> arrDiemSV;
-    ObjectDiemSinhVien objectDiemSinhVien;
+    public static ArrayList<DiemSinhVien> arrDiemSV;
+    DiemSinhVien objectDiemSinhVien;
     DiemSinhVienAdapter diemSinhVienAdapter;
     Context context;
     TextView maLTC, tenMH;
@@ -60,18 +57,18 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
         lvDSSV_LTC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(nhapdiem_ct_ltc.this, "Item: "+nhapdiem_ct_ltc.arrDiemSV.get(position).getMaSV(), Toast.LENGTH_SHORT).show();
-                maLTC_ct_ltc = nhapdiem.maLTC_NhapDiem;
-                tenMH_ct_ltc = nhapdiem.tenMH_NhapDiem;
-                maSV_ct_ltc = nhapdiem_ct_ltc.arrDiemSV.get(position).getMaSV();
-                Intent intent = new Intent(nhapdiem_ct_ltc.this, cap_nhat_diem.class);
+                Toast.makeText(NhapDiem_CT_LTC.this, "Item: "+ NhapDiem_CT_LTC.arrDiemSV.get(position).getMaSV(), Toast.LENGTH_SHORT).show();
+                maLTC_ct_ltc = NhapDiem.maLTC_NhapDiem;
+                tenMH_ct_ltc = NhapDiem.tenMH_NhapDiem;
+                maSV_ct_ltc = NhapDiem_CT_LTC.arrDiemSV.get(position).getMaSV();
+                Intent intent = new Intent(NhapDiem_CT_LTC.this, CapNhatDiem.class);
                 startActivity(intent);
             }
         });
         btnClickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(nhapdiem_ct_ltc.this, nhapdiem.class);
+                Intent intent = new Intent(NhapDiem_CT_LTC.this, NhapDiem.class);
                 intent.putExtra("maGiangVien", MaGiangVien);
                 startActivity(intent);
             }
@@ -82,14 +79,13 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
 
         private void getDSSV() {
         try {
-            connectionHelper connectionHelper = new connectionHelper();
-            connect = connectionHelper.connectionClass();
+            connect = DatabaseManager.getConnection();
 
             if(connect !=null){
                 String query =
                         "SELECT SV.MaSV, DK.DIEMCC,DK.DiemGK,DK.DiemCK,(MH.HeSoCC*DK.DiemCC + MH.HeSoGK*DK.DiemGK + MH.HeSocK*DK.DiemGK)/100 AS DIEMTK  \n" +
                         "FROM LOPTINCHI LTC, SINHVIEN SV,MONHOC MH, DangKi DK\n" +
-                        "WHERE DK.MaLTC='"+nhapdiem.maLTC_NhapDiem+"' AND DK.MaSV=SV.MaSV AND LTC.MaMH=MH.MaMH and DK.MALTC = LTC.MALTC";
+                        "WHERE DK.MaLTC='"+ NhapDiem.maLTC_NhapDiem+"' AND DK.MaSV=SV.MaSV AND LTC.MaMH=MH.MaMH and DK.MALTC = LTC.MALTC";
                 arrDiemSV.clear();
                 Statement st = connect.createStatement();
                 ResultSet rs = st.executeQuery(query);
@@ -97,7 +93,7 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
                 while(rs.next())
                 {
 
-                    objectDiemSinhVien = new ObjectDiemSinhVien();
+                    objectDiemSinhVien = new DiemSinhVien();
                     objectDiemSinhVien.setId(i);
                     objectDiemSinhVien.setMaSV(rs.getString(1));
                     objectDiemSinhVien.setDiemCC(rs.getFloat(2));
@@ -107,7 +103,7 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
 
                     arrDiemSV.add(objectDiemSinhVien);
                 }
-                Toast.makeText(context, nhapdiem.maLTC_NhapDiem+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, NhapDiem.maLTC_NhapDiem+"", Toast.LENGTH_SHORT).show();
 
                 connect.close();
             }
@@ -130,18 +126,17 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
 
     }
     private void setEvent(){
-        maLTC.setText(nhapdiem.maLTC_NhapDiem);
-        tenMH.setText(nhapdiem.tenMH_NhapDiem);
+        maLTC.setText(NhapDiem.maLTC_NhapDiem);
+        tenMH.setText(NhapDiem.tenMH_NhapDiem);
         getDSSV();
     }
     public void timKiemMaSV(String kitu){
         try {
-            connectionHelper connectionHelper = new connectionHelper();
-            connect = connectionHelper.connectionClass();
+            connect = DatabaseManager.getConnection();
             String query =
                     "SELECT SV.MaSV, DK.DIEMCC,DK.DiemGK,DK.DiemCK,(MH.HeSoCC*DK.DiemCC + MH.HeSoGK*DK.DiemGK + MH.HeSocK*DK.DiemGK)/100 AS DIEMTK  \n" +
                             "FROM LOPTINCHI LTC, SINHVIEN SV,MONHOC MH, DangKi DK\n" +
-                            "WHERE DK.MaLTC='"+nhapdiem.maLTC_NhapDiem+"' AND DK.MaSV=SV.MaSV AND LTC.MaMH=MH.MaMH and DK.MALTC = LTC.MALTC";
+                            "WHERE DK.MaLTC='"+ NhapDiem.maLTC_NhapDiem+"' AND DK.MaSV=SV.MaSV AND LTC.MaMH=MH.MaMH and DK.MALTC = LTC.MALTC";
 
             if (connect != null) {
                 query = query + " and (SV.MaSV like N'%"+kitu+"%')";
@@ -151,7 +146,7 @@ public class nhapdiem_ct_ltc extends AppCompatActivity {
                 int i=0;
                 while(rs.next())
                 {
-                    objectDiemSinhVien = new ObjectDiemSinhVien();
+                    objectDiemSinhVien = new DiemSinhVien();
                     objectDiemSinhVien.setId(i);
                     objectDiemSinhVien.setMaSV(rs.getString(1));
                     objectDiemSinhVien.setDiemCC(rs.getFloat(2));

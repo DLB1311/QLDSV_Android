@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.Database.DatabaseManager;
 import com.example.Objects.ChuyenNganh;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class QlmonhocTaomonhocActivity extends AppCompatActivity {
+public class TaoMonHoc extends AppCompatActivity {
     Connection conn;
     Spinner spinnerCN;
     Button btnAddmonhoc, btnClickBack;
@@ -98,7 +99,7 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
         btnClickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QlmonhocTaomonhocActivity.this, QlmonhocMainActivity.class);
+                Intent intent = new Intent(TaoMonHoc.this, QLMonHoc.class);
                 startActivity(intent);
                 finish();
             }
@@ -139,8 +140,7 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
     }
     public void loadMonHoc(ArrayList list) {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM MonHoc";
                 Statement st = conn.createStatement();
@@ -160,8 +160,7 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
 
     public void loadSpinner(Spinner spinner, ArrayList listTenCN) {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT TenCN FROM ChuyenNganh";
                 Statement st = conn.createStatement();
@@ -181,8 +180,7 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
     }
     public void loadData(ArrayList listCN) {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM ChuyenNganh";
                 Statement st = conn.createStatement();
@@ -201,8 +199,7 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
     }
 
     public void insertData(MonHoc mh) {
-        connectionHelper ch = new connectionHelper();
-        conn = ch.connectionClass();
+        conn = DatabaseManager.getConnection();
         try {
             if(conn != null) {
                 String query = "INSERT INTO MonHoc(MaMH, TenMH, SoTietLT, SoTietTH, SoTinChi, HeSoCC, HeSoGK, HeSoCK, MaCN) " +
@@ -223,13 +220,13 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
         return TextUtils.isEmpty(check);
     }
     public void alertSuccess() {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(QlmonhocTaomonhocActivity.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(TaoMonHoc.this);
         bulider.setMessage("Thêm môn học thành công.");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                Intent intent = new Intent(QlmonhocTaomonhocActivity.this, QlmonhocMainActivity.class);
+                Intent intent = new Intent(TaoMonHoc.this, QLMonHoc.class);
                 startActivity(intent);
                 finish();
             }
@@ -238,7 +235,7 @@ public class QlmonhocTaomonhocActivity extends AppCompatActivity {
         alert.show();
     }
     public void alertFail() {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(QlmonhocTaomonhocActivity.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(TaoMonHoc.this);
         bulider.setMessage("Thêm môn học thất bại.");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {

@@ -37,6 +37,9 @@ public class ThongBaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_bao);
 
+        Intent intent = getIntent();
+        maSinhVien = intent.getStringExtra("maSinhVien");
+
         setControl();
         AddItem();
         setEnvent();
@@ -75,10 +78,12 @@ public class ThongBaoActivity extends AppCompatActivity {
                     "JOIN GiangVien gv ON tb.MaGV = gv.MaGV \n" +
                     "JOIN SinhVien_ThongBao stb ON tb.MaTB = stb.MaTB \n" +
                     "WHERE stb.MaSV ='"+maSinhVien+"'";
+            System.out.println(sql);
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
+                System.out.println(rs.getString("TieuDe"));
                 Integer maTB = Integer.valueOf(rs.getString("maTB"));
                 String tieuDe = rs.getString("TieuDe");
                 String noiDung = rs.getString("NoiDung");

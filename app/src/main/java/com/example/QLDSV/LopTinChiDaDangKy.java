@@ -1,7 +1,5 @@
 package com.example.QLDSV;
 
-import static android.content.ContentValues.TAG;
-
 import android.animation.ObjectAnimator;
 import android.app.SearchManager;
 import android.content.Context;
@@ -23,9 +21,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import com.example.Database.DatabaseManager;
 import com.example.adapter.LopTinChiDaDangKyAdapter;
-import com.example.Database.ConnectionHelper;
-import com.example.Objects.ObjectLopTinChiDaDangKy;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,8 +38,8 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
     ArrayList<String> arrHocKy = new ArrayList<String>();
 
     ListView listviewDK;
-    public static ArrayList<ObjectLopTinChiDaDangKy> arrLopTinChiDaDangKy;
-    ObjectLopTinChiDaDangKy objectLopTinChiDaDangKy;
+    public static ArrayList<com.example.Objects.LopTinChiDaDangKy> arrLopTinChiDaDangKy;
+    com.example.Objects.LopTinChiDaDangKy objectLopTinChiDaDangKy;
     LopTinChiDaDangKyAdapter lopTinChiDaDangKyAdapter;
     int vitri=-1, vitriNienKhoa=0, vitriHocKy=0;
     Button nutCapNhatDangKy, nutTroVe;
@@ -85,7 +82,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
         listviewDK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(LopTinChiDaDangKy.this, "Item: "+LopTinChiDaDangKy.arrLopTinChiDaDangKy.get(position).getMaLTC(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LopTinChiDaDangKy.this, "Item: "+ com.example.QLDSV.LopTinChiDaDangKy.arrLopTinChiDaDangKy.get(position).getMaLTC(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -224,8 +221,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
     {
         try
         {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connect = connectionHelper.connectionHelper();
+            connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query="";
                 if(arrNienKhoa.get(vitriNienKhoa).equals("All") && arrHocKy.get(vitriHocKy).equals("All"))
@@ -247,7 +243,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
                 int i=0;
                 while(rs.next())
                 {
-                    objectLopTinChiDaDangKy = new ObjectLopTinChiDaDangKy();
+                    objectLopTinChiDaDangKy = new com.example.Objects.LopTinChiDaDangKy();
                     objectLopTinChiDaDangKy.setId(i);
                     objectLopTinChiDaDangKy.setMaLTC(rs.getString(1));
                     objectLopTinChiDaDangKy.setTenMH(searchTenMonHoc(rs.getString(8)));
@@ -272,8 +268,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
     public void xuatNienKhoa() {
         try
         {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connect = connectionHelper.connectionHelper();
+            connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = "select distinct namhoc, cast(substring(NamHoc,0,5) as int)\n" +
                         "from LopTinChi\n" +
@@ -302,8 +297,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
     public String searchTenMonHoc(String maMH) {
         String sql = " SELECT tenmh FROM monhoc WHERE mamh=N'" + maMH + "'";
         try {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connect = connectionHelper.connectionHelper();
+            connect = DatabaseManager.getConnection();
             Statement st = connect.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
@@ -318,8 +312,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
 
     public void timKiemDK(String kitu){
         try {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connect = connectionHelper.connectionHelper();
+            connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = "select * from LopTinChi ltc\n" +
                         "inner join MonHoc mh on ltc.MaMH=mh.MaMH\n" +
@@ -331,7 +324,7 @@ public class LopTinChiDaDangKy extends AppCompatActivity {
                 int i=0;
                 while(rs.next())
                 {
-                    objectLopTinChiDaDangKy = new ObjectLopTinChiDaDangKy();
+                    objectLopTinChiDaDangKy = new com.example.Objects.LopTinChiDaDangKy();
                     objectLopTinChiDaDangKy.setId(i);
                     objectLopTinChiDaDangKy.setMaLTC(rs.getString(1));
                     objectLopTinChiDaDangKy.setTenMH(searchTenMonHoc(rs.getString(8)));

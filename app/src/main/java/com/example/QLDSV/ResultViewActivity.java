@@ -25,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.Database.DatabaseManager;
 import com.example.Objects.Semester;
+import com.example.Objects.SubjectScore;
 import com.example.adapter.TableViewAdapter;
 
 import java.sql.Connection;
@@ -98,6 +99,8 @@ public class ResultViewActivity extends AppCompatActivity {
         refreshLayout.setDistanceToTriggerSync(300);
         refreshLayout.setOnRefreshListener(() -> {
             getData();
+//            spnSemester.setSelection(0, true);
+//            edtScoreFilter.getText().clear();
             recyclerView.setAdapter(new TableViewAdapter(ResultViewActivity.this, listSubjectScore));
             refreshLayout.setRefreshing(false);
         });

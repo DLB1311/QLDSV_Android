@@ -8,9 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,19 +18,17 @@ import com.example.Database.DatabaseManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
-public class cap_nhat_diem extends AppCompatActivity {
+public class CapNhatDiem extends AppCompatActivity {
 
     TextView maLTC, tenMH, maSV, tenSV;
     EditText diemCC, diemGK, diemCK;
 
     Button btnUpdate;
 
-    Connection connect;
+    Connection conn;
     String connectionResult="";
 
-    Context context;
 
 
 
@@ -57,17 +53,16 @@ public class cap_nhat_diem extends AppCompatActivity {
                     diemGK_Update = Float.parseFloat(diemGK.getText().toString());
                     diemCK_Update = Float.parseFloat(diemCK.getText().toString());
                     try {
-                        connectionHelper connectionHelper = new connectionHelper();
-                        connect = connectionHelper.connectionClass();
-                        if (connect != null) {
+                        conn = DatabaseManager.getConnection();
+                        if (conn != null) {
                             String query = "UPDATE DangKi\n" +
                                     "SET DIEMCC = " + diemCC_Update + " , DiemGK = " + diemGK_Update + " , DiemCK =" + diemCK_Update + "\n" +
-                                    "WHERE MaLTC='" + nhapdiem_ct_ltc.maLTC_ct_ltc + "' AND MaSV='" + nhapdiem_ct_ltc.maSV_ct_ltc + "'";
-                            Statement st = connect.createStatement();
+                                    "WHERE MaLTC='" + NhapDiem_CT_LTC.maLTC_ct_ltc + "' AND MaSV='" + NhapDiem_CT_LTC.maSV_ct_ltc + "'";
+                            Statement st = conn.createStatement();
                             st.executeUpdate(query);
 
-                            connect.close();
-                            alertSuccess("Cập nhật điểm cho sinh viên: " + nhapdiem_ct_ltc.maSV_ct_ltc + " thành công! ");
+                            conn.close();
+                            alertSuccess("Cập nhật điểm cho sinh viên: " + NhapDiem_CT_LTC.maSV_ct_ltc + " thành công! ");
 
                         } else {
                             connectionResult = "Check Connection";
@@ -100,22 +95,21 @@ public class cap_nhat_diem extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
     }
     private void setEvent(){
-        maLTC.setText(nhapdiem_ct_ltc.maLTC_ct_ltc);
-        tenMH.setText(nhapdiem_ct_ltc.tenMH_ct_ltc);
-        maSV.setText(nhapdiem_ct_ltc.maSV_ct_ltc);
+        maLTC.setText(NhapDiem_CT_LTC.maLTC_ct_ltc);
+        tenMH.setText(NhapDiem_CT_LTC.tenMH_ct_ltc);
+        maSV.setText(NhapDiem_CT_LTC.maSV_ct_ltc);
         getDiemSV();
     }
 
     private void getDiemSV() {
         try {
-            connectionHelper connectionHelper = new connectionHelper();
-            connect = connectionHelper.connectionClass();
-            if(connect !=null){
+            conn = DatabaseManager.getConnection();
+            if(conn !=null){
                 String query =
                         "SELECT SV.HoTen, DK.DIEMCC,DK.DiemGK,DK.DiemCK\n" +
                                 "FROM SINHVIEN SV, DangKi DK\n" +
-                                "WHERE DK.MaLTC='"+nhapdiem_ct_ltc.maLTC_ct_ltc+"' AND DK.MaSV='"+nhapdiem_ct_ltc.maSV_ct_ltc+"' AND SV.MaSV = DK.MaSV";
-                Statement st = connect.createStatement();
+                                "WHERE DK.MaLTC='"+ NhapDiem_CT_LTC.maLTC_ct_ltc+"' AND DK.MaSV='"+ NhapDiem_CT_LTC.maSV_ct_ltc+"' AND SV.MaSV = DK.MaSV";
+                Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(query);
                 int i=0;
                 while(rs.next())
@@ -125,7 +119,7 @@ public class cap_nhat_diem extends AppCompatActivity {
                     diemGK.setText(Float.toString(rs.getFloat(3)));
                     diemCK.setText(Float.toString(rs.getFloat(4)));
                 }
-                connect.close();
+                conn.close();
             }
             else{
                 connectionResult="Check Connection";
@@ -137,14 +131,14 @@ public class cap_nhat_diem extends AppCompatActivity {
     }
 
     public void alertSuccess(String content) {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(cap_nhat_diem.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(CapNhatDiem.this);
         bulider.setMessage(content);
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                Intent intent = new Intent(cap_nhat_diem.this, nhapdiem_ct_ltc.class);
-                intent.putExtra("maGiangVien", main_giangvien.maGV);
+                Intent intent = new Intent(CapNhatDiem.this, NhapDiem_CT_LTC.class);
+                intent.putExtra("maGiangVien", TrangChuGV.maGV);
                 startActivity(intent);
                 finish();
             }

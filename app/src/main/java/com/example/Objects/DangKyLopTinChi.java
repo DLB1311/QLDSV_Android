@@ -1,6 +1,6 @@
 package com.example.Objects;
 
-public class ObjectDangKyLopTinChi {
+public class DangKyLopTinChi {
     private int id;
     private String maLTC;
     private String tenMH;
@@ -10,9 +10,9 @@ public class ObjectDangKyLopTinChi {
     private String ngayKT;
     private boolean ischecked;
 
-    public ObjectDangKyLopTinChi(){
+    public DangKyLopTinChi(){
     }
-    public ObjectDangKyLopTinChi(int id, String maLTC, String tenMH, int slTD, int slCL, String ngayBD, String ngayKT, boolean ischecked) {
+    public DangKyLopTinChi(int id, String maLTC, String tenMH, int slTD, int slCL, String ngayBD, String ngayKT, boolean ischecked) {
         this.id = id;
         this.maLTC = maLTC;
         this.tenMH = tenMH;

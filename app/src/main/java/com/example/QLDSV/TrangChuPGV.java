@@ -37,7 +37,7 @@ public class TrangChuPGV extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("Btn", "Bam nut ne");
 
-                Intent intent = new Intent(TrangChuPGV.this, QlmonhocMainActivity.class);
+                Intent intent = new Intent(TrangChuPGV.this, QLMonHoc.class);
                 startActivity(intent);
                 finish();
             }
@@ -45,7 +45,7 @@ public class TrangChuPGV extends AppCompatActivity {
         btnTaiKhoanSV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TrangChuPGV.this, Qltaikhoansv.class);
+                Intent intent = new Intent(TrangChuPGV.this, QLTaiKhoanSV.class);
                 startActivity(intent);
                 finish();
             }
@@ -55,7 +55,7 @@ public class TrangChuPGV extends AppCompatActivity {
         btnLoptinchi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TrangChuPGV.this, Qlloptinchi_main.class);
+                Intent intent = new Intent(TrangChuPGV.this, QLLopTinChi.class);
                 startActivity(intent);
                 finish();
             }

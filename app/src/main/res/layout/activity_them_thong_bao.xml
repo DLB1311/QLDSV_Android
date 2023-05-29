@@ -77,7 +77,7 @@
             android:gravity="center"
             android:text="Lớp tín chỉ"
             android:textStyle="bold"
-            android:textSize="30dp"
+            android:textSize="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/main"

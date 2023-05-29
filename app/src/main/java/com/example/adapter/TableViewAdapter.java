@@ -19,8 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Objects.Semester;
+import com.example.Objects.SubjectScore;
 import com.example.QLDSV.R;
-import com.example.QLDSV.*;
 
 import java.util.ArrayList;
 

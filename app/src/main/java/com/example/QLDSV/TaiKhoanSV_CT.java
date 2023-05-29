@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.Database.ConnectionHelper;
+import com.example.Database.DatabaseManager;
 import com.example.Objects.TaiKhoan;
 
 import java.sql.Connection;
@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Taikhoansv_ct extends AppCompatActivity {
+public class TaiKhoanSV_CT extends AppCompatActivity {
     Connection conn;
     String maTK;
     Button btnCapNhat, btnClickBack;
@@ -49,7 +49,7 @@ public class Taikhoansv_ct extends AppCompatActivity {
         btnClickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Taikhoansv_ct.this, Qltaikhoansv.class);
+                Intent intent = new Intent(TaiKhoanSV_CT.this, QLTaiKhoanSV.class);
                 startActivity(intent);
                 finish();
             }
@@ -65,8 +65,7 @@ public class Taikhoansv_ct extends AppCompatActivity {
                 } else {
                     TaiKhoan tk = new TaiKhoan(txtMaTK.getText().toString(), txtTenTK.getText().toString(), txtMatKhau.getText().toString());
                     try {
-                        ConnectionHelper ch = new ConnectionHelper();
-                        conn = ch.connectionHelper();
+                        conn = DatabaseManager.getConnection();
                         String query = "update TaiKhoan set TenTaiKhoan = ?, MatKhau = ? where MaTk = '" + tk.getMatk() + "'";
                         PreparedStatement pst = conn.prepareStatement(query);
                         pst.setString(1, tk.getTentk());
@@ -84,8 +83,7 @@ public class Taikhoansv_ct extends AppCompatActivity {
     public TaiKhoan loadInfoTaiKhoan(String maTK) {
         TaiKhoan tk = null;
         try {
-            ConnectionHelper ch = new ConnectionHelper();
-            conn = ch.connectionHelper();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "select * from TaiKhoan tk where tk.MaTk = '" + maTK + "'";
                 Statement st = conn.createStatement();
@@ -109,13 +107,13 @@ public class Taikhoansv_ct extends AppCompatActivity {
         return TextUtils.isEmpty(check);
     }
     public void alertSuccess() {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Taikhoansv_ct.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(TaiKhoanSV_CT.this);
         bulider.setMessage("Cập nhật tài khoản thành công.");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                Intent intent = new Intent(Taikhoansv_ct.this, Qltaikhoansv.class);
+                Intent intent = new Intent(TaiKhoanSV_CT.this, QLTaiKhoanSV.class);
                 startActivity(intent);
                 finish();
             }

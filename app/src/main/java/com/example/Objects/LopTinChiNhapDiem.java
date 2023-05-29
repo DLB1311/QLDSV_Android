@@ -1,18 +1,18 @@
 package com.example.Objects;
 
 
-public class ObjectLopTinChiNhapDiem {
+public class LopTinChiNhapDiem {
     private int id;
     private String maLTC;
     private String tenMH;
 
 
 
-    public ObjectLopTinChiNhapDiem(){
+    public LopTinChiNhapDiem(){
     }
 
 
-    public ObjectLopTinChiNhapDiem(int id, String maLTC, String tenMH) {
+    public LopTinChiNhapDiem(int id, String maLTC, String tenMH) {
         this.id = id;
         this.maLTC = maLTC;
         this.tenMH = tenMH;

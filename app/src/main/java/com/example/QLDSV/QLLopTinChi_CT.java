@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.Database.DatabaseManager;
 import com.example.Objects.LopTinChi;
 
 import java.sql.Connection;
@@ -24,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Qlloptinchi_detail extends AppCompatActivity {
+public class QLLopTinChi_CT extends AppCompatActivity {
     Connection conn;
     EditText txtMaMH, txtSltoithieu, txtSltoida, txtNamhoc, txtHocki;
     TextView txtDateStart, txtDateEnd, txtMaLTC;
@@ -91,8 +92,7 @@ public class Qlloptinchi_detail extends AppCompatActivity {
                         Integer.parseInt(txtSltoida.getText().toString()), dateStart,
                         dateStart, txtMaMH.getText().toString());
                 try {
-                    connectionHelper ch = new connectionHelper();
-                    conn = ch.connectionClass();
+                    conn = DatabaseManager.getConnection();
                     String query = "UPDATE LopTinChi SET NamHoc = ?, HocKi = ?, SLToiThieu = ?, SLToiDa = ?, NgayBD = ?, " +
                             "NgayKT = ?, MaMH = ? WHERE MaLTC = '" + ltc.getMaltc() + "'";
 
@@ -118,8 +118,7 @@ public class Qlloptinchi_detail extends AppCompatActivity {
     public LopTinChi loadInfoLopTinChi(String maltc) {
         LopTinChi ltc = null;
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM LopTinChi WHERE LopTinChi.MaLTC = '" + maltc + "'";
                 Statement st = conn.createStatement();

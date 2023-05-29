@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.Database.DatabaseManager;
 import com.example.Objects.MonHoc;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class QlmonhocDetailsActivity extends AppCompatActivity {
+public class QLMonHoc_CT extends AppCompatActivity {
     Connection conn;
     String mamh;
     Button btnAccept, btnBack;
@@ -56,7 +57,7 @@ public class QlmonhocDetailsActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QlmonhocDetailsActivity.this, QlmonhocMainActivity.class);
+                Intent intent = new Intent(QLMonHoc_CT.this, QLMonHoc.class);
                 startActivity(intent);
                 finish();
             }
@@ -71,9 +72,7 @@ public class QlmonhocDetailsActivity extends AppCompatActivity {
                         Integer.parseInt(txtGK.getText().toString()), Integer.parseInt(txtCK.getText().toString()),
                         txtMaCN.getText().toString());
                 try {
-                    connectionHelper ch = new connectionHelper();
-                    conn = ch.connectionClass();
-                    Log.e("Success", "1");
+                    conn = DatabaseManager.getConnection();
                     String query = "UPDATE MonHoc SET TenMH = ?, SoTietLT = ?, SoTietTH = ?, SoTinChi = ?, HeSoCC = ?, " +
                             "HeSoGK = ?, HeSoCK = ?, MaCN = ? WHERE MaMH = '" + monhoc.getMamh() + "'";
                     Log.e("Success", "2");
@@ -101,8 +100,7 @@ public class QlmonhocDetailsActivity extends AppCompatActivity {
     public MonHoc loadInfoMonhoc(String mamh) {
         MonHoc mh = null;
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM MonHoc WHERE MonHoc.MaMH = '" + mamh + "'";
                 Statement st = conn.createStatement();

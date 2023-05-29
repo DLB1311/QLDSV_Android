@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,10 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.Database.DatabaseManager;
-import com.squareup.picasso.Picasso;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -113,7 +110,7 @@ public class ThemThongBao extends AppCompatActivity {
                     intent.putExtra("maGiangVien", maGV);
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(ThemThongBao.this, main_giangvien.class);
+                    Intent intent = new Intent(ThemThongBao.this, TrangChuGV.class);
                     intent.putExtra("maGiangVien", maGV);
                     startActivity(intent);
                 }
@@ -276,8 +273,8 @@ public class ThemThongBao extends AppCompatActivity {
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                Intent intent = new Intent(ThemThongBao.this, main_giangvien.class);
-                intent.putExtra("maGiangVien", main_giangvien.maGV);
+                Intent intent = new Intent(ThemThongBao.this, TrangChuGV.class);
+                intent.putExtra("maGiangVien", TrangChuGV.maGV);
                 startActivity(intent);
                 finish();
             }

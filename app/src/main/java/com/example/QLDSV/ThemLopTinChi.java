@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.Database.DatabaseManager;
 import com.example.Objects.LopTinChi;
 import com.example.Objects.MonHoc;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Qlloptinchi_add extends AppCompatActivity {
+public class ThemLopTinChi extends AppCompatActivity {
     Connection conn;
     Button btnDateStart, btnXacnhan;
     EditText txtMaMH, txtSltoithieu, txtSltoida, txtNamhoc, txtHocki, txtMaLTC;
@@ -71,7 +72,7 @@ public class Qlloptinchi_add extends AppCompatActivity {
         btnClickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Qlloptinchi_add.this, Qlloptinchi_main.class);
+                Intent intent = new Intent(ThemLopTinChi.this, QLLopTinChi.class);
                 startActivity(intent);
                 finish();
             }
@@ -127,8 +128,7 @@ public class Qlloptinchi_add extends AppCompatActivity {
     }
     public void loadMonHoc(ArrayList list) {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM MonHoc";
                 Statement st = conn.createStatement();
@@ -175,8 +175,7 @@ public class Qlloptinchi_add extends AppCompatActivity {
         datePickerDialog.show();
     }
     public void insertData(LopTinChi ltc) {
-        connectionHelper ch = new connectionHelper();
-        conn = ch.connectionClass();
+        conn = DatabaseManager.getConnection();
         try {
             if(conn != null) {
                 String query = "INSERT INTO LopTinChi(MaLTC, NamHoc, HocKi, SLToiThieu, SLToiDa, NgayBD, NgayKT, MaMH) " +
@@ -192,13 +191,13 @@ public class Qlloptinchi_add extends AppCompatActivity {
         }
     }
     public void alertSuccess() {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Qlloptinchi_add.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(ThemLopTinChi.this);
         bulider.setMessage("Thêm lớp tín chỉ thành công.");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                Intent intent = new Intent(Qlloptinchi_add.this, Qlloptinchi_main.class);
+                Intent intent = new Intent(ThemLopTinChi.this, QLLopTinChi.class);
                 startActivity(intent);
                 finish();
             }
@@ -207,7 +206,7 @@ public class Qlloptinchi_add extends AppCompatActivity {
         alert.show();
     }
     public void alertFail() {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Qlloptinchi_add.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(ThemLopTinChi.this);
         bulider.setMessage("Thêm lớp tín chỉ thất bại.");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {

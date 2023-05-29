@@ -18,6 +18,7 @@
     <androidx.appcompat.widget.AppCompatImageButton
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:id="@+id/close_button"
         android:src="@drawable/close_icon"
         android:background="@android:color/transparent"
         android:layout_alignParentEnd="true"/>

@@ -16,7 +16,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import com.example.Database.DatabaseManager;
 import com.example.Objects.*;
+import com.example.adapter.MonhocAdapter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +26,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class QlmonhocMainActivity extends AppCompatActivity {
+public class QLMonHoc extends AppCompatActivity {
     Button btnClickback;
     Button btnAddmonhoc, btnDelmonhoc;
     Connection conn;
@@ -96,7 +98,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
         btnClickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QlmonhocMainActivity.this, TrangChuPGV.class);
+                Intent intent = new Intent(QLMonHoc.this, TrangChuPGV.class);
                 startActivity(intent);
             }
         });
@@ -107,7 +109,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
         btnAddmonhoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QlmonhocMainActivity.this, QlmonhocTaomonhocActivity.class);
+                Intent intent = new Intent(QLMonHoc.this, TaoMonHoc.class);
                 startActivity(intent);
             }
         });
@@ -122,7 +124,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
                     listMH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(QlmonhocMainActivity.this, QlmonhocDetailsActivity.class);
+                            Intent intent = new Intent(QLMonHoc.this, QLMonHoc_CT.class);
                             Log.i("MaMh", list.get(i).getMamh());
                             intent.putExtra("mamh", list.get(i).getMamh());
                             startActivity(intent);
@@ -134,7 +136,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
                     listMH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(QlmonhocMainActivity.this, QlmonhocDetailsActivity.class);
+                            Intent intent = new Intent(QLMonHoc.this, QLMonHoc_CT.class);
                             Log.i("MaMh", list.get(i).getMamh());
                             intent.putExtra("mamh", list.get(i).getMamh());
                             startActivity(intent);
@@ -161,8 +163,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 ArrayList<MonHoc> listMonhocDB = new ArrayList<>();
                 try {
-                    connectionHelper ch = new connectionHelper();
-                    conn = ch.connectionClass();
+                    conn = DatabaseManager.getConnection();
                     if(conn != null) {
                         String query = "SELECT * FROM MonHoc";
                         Statement st = conn.createStatement();
@@ -195,8 +196,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
 
     public void loadListMonHoc() {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM MonHoc";
                 Statement st = conn.createStatement();
@@ -218,8 +218,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
     public void loadListMonHocChuyenNganh(String str) {
         list = new ArrayList<>();
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM MonHoc WHERE MaCN = '"+str+"'";
                 Statement st = conn.createStatement();
@@ -241,8 +240,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
     public void loadSpinner(Spinner spinner, ArrayList listCN) {
         listCN.add("Chọn tất cả chuyên ngành");
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM ChuyenNganh";
                 Statement st = conn.createStatement();
@@ -262,8 +260,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
     }
     public void loadChuyenNganh() {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if (conn != null) {
                 String query = "SELECT * FROM ChuyenNganh";
                 Statement st = conn.createStatement();
@@ -290,18 +287,17 @@ public class QlmonhocMainActivity extends AppCompatActivity {
         }
         return MaCN;
     }
-    public ArrayList<kehoachGiangDay> loadData(String str) {
-        ArrayList<kehoachGiangDay> listKeHoach = new ArrayList<>();
+    public ArrayList<KeHoachGiangDay> loadData(String str) {
+        ArrayList<KeHoachGiangDay> listKeHoach = new ArrayList<>();
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT MaCN FROM KeHoach WHERE MaMH = '" + str + "'";
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
                     String macn = rs.getString("MaCN");
-                    kehoachGiangDay kh = new kehoachGiangDay(macn);
+                    KeHoachGiangDay kh = new KeHoachGiangDay(macn);
                     listKeHoach.add(kh);
                 }
             }
@@ -312,7 +308,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
         return listKeHoach;
     }
     public void deleteFail(String str) {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(QlmonhocMainActivity.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(QLMonHoc.this);
         bulider.setMessage("Không thể xoá môn " + str.trim() + ". Do môn học này đã có kế hoạch giảng dạy");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
@@ -330,7 +326,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
         });
     }
     public void deleteMonHoc(int i) {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(QlmonhocMainActivity.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(QLMonHoc.this);
         bulider.setMessage("Xác nhận xoá môn học này?");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
@@ -339,7 +335,7 @@ public class QlmonhocMainActivity extends AppCompatActivity {
                 Log.i("MaMH", mamh);
                 MonHoc monhoc = list.get(i);
                 Log.i("MonhocMaMH", monhoc.getMamh());
-                ArrayList<kehoachGiangDay> listKeHoach = loadData(mamh);
+                ArrayList<KeHoachGiangDay> listKeHoach = loadData(mamh);
                 if(listKeHoach.size() == 0) {
                     list.remove(monhoc);
                     try {

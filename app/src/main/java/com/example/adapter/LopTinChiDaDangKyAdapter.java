@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.Objects.ObjectLopTinChiDaDangKy;
+import com.example.Objects.LopTinChiDaDangKy;
 import com.example.QLDSV.R;
 
 import java.util.ArrayList;
@@ -18,17 +18,17 @@ public class LopTinChiDaDangKyAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private LayoutInflater layoutInflater;
-    ArrayList<ObjectLopTinChiDaDangKy> listLTCDDK;
-    private ObjectLopTinChiDaDangKy objectLopTinChiDaDangKy;
+    ArrayList<LopTinChiDaDangKy> listLTCDDK;
+    private LopTinChiDaDangKy objectLopTinChiDaDangKy;
     public static ArrayList<Integer> dsLTCduocchon = new ArrayList<Integer>();
 
-    public LopTinChiDaDangKyAdapter(Context context, ArrayList<ObjectLopTinChiDaDangKy> listLTCDDK) {
+    public LopTinChiDaDangKyAdapter(Context context, ArrayList<LopTinChiDaDangKy> listLTCDDK) {
         this.context = context;
         this.listLTCDDK = listLTCDDK;
         layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public LopTinChiDaDangKyAdapter(Context context,int layout, ArrayList<ObjectLopTinChiDaDangKy> listLTCDDK) {
+    public LopTinChiDaDangKyAdapter(Context context,int layout, ArrayList<LopTinChiDaDangKy> listLTCDDK) {
         this.context = context;
         this.layout=layout;
         this.listLTCDDK=listLTCDDK;

@@ -14,6 +14,13 @@ public class TaiKhoan {
 
     }
 
+//    public TaiKhoan(String tentk, String matkhau) {
+//
+//        this.tentk = tentk;
+//        this.matkhau = matkhau;
+//
+//    }
+
     public TaiKhoan(String matk, String tentk, String matkhau) {
         this.matk = matk;
         this.tentk = tentk;

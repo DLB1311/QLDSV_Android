@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.Database.ConnectionHelper;
+import com.example.Database.DatabaseManager;
 import com.example.Objects.TaiKhoan;
 
 import java.sql.Connection;
@@ -22,7 +22,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Taotaikhoansv extends AppCompatActivity {
+public class TaoTaiKhoanSV extends AppCompatActivity {
     EditText txtTenTK, txtMatKhau;
     Button btnClickBack, btnThem;
     Connection conn;
@@ -44,7 +44,7 @@ public class Taotaikhoansv extends AppCompatActivity {
         btnClickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Taotaikhoansv.this, Qltaikhoansv.class);
+                Intent intent = new Intent(TaoTaiKhoanSV.this, QLTaiKhoanSV.class);
                 startActivity(intent);
             }
 
@@ -55,7 +55,7 @@ public class Taotaikhoansv extends AppCompatActivity {
             public void onClick(View view) {
                 String maSV = spinnerMaSV.getSelectedItem().toString();
                 if(maSV.equals("Chọn mã sinh viên")){
-                    AlertDialog.Builder bulider = new AlertDialog.Builder(Taotaikhoansv.this);
+                    AlertDialog.Builder bulider = new AlertDialog.Builder(TaoTaiKhoanSV.this);
                     bulider.setMessage("Vui lòng chọn mã sinh viên.");
                     bulider.setCancelable(true);
                     bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
@@ -86,8 +86,7 @@ public class Taotaikhoansv extends AppCompatActivity {
         listSpinnerMaSV.clear();
         listSpinnerMaSV.add("Chọn mã sinh viên");
         try {
-            ConnectionHelper c = new ConnectionHelper();
-            conn = c.connectionHelper();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "select MaSV from SinhVien sv where not exists (select MaTk from TaiKhoan tk where sv.MaSV = tk.MaTk)";
                 Statement st = conn.createStatement();
@@ -107,8 +106,7 @@ public class Taotaikhoansv extends AppCompatActivity {
     }
 
     public void insertData(TaiKhoan tk) {
-        ConnectionHelper ch = new ConnectionHelper();
-        conn = ch.connectionHelper();
+        conn = DatabaseManager.getConnection();
         try {
             if(conn != null) {
                 String query = "insert into TaiKhoan(MaTk, TenTaiKhoan, MatKhau, MaVaiTro) " +
@@ -128,13 +126,13 @@ public class Taotaikhoansv extends AppCompatActivity {
     }
 
     public void alertSuccess() {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Taotaikhoansv.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(TaoTaiKhoanSV.this);
         bulider.setMessage("Thêm tài khoản thành công.");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                Intent intent = new Intent(Taotaikhoansv.this, Qltaikhoansv.class);
+                Intent intent = new Intent(TaoTaiKhoanSV.this, QLTaiKhoanSV.class);
                 startActivity(intent);
                 finish();
             }

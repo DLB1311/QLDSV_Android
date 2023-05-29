@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.QLDSV.DangKyLopTinChi;
 import com.example.QLDSV.LopTinChiDaDangKy;
-import com.example.Objects.ObjectDangKyLopTinChi;
+import com.example.Objects.DangKyLopTinChi;
 import com.example.QLDSV.R;
 
 import java.util.ArrayList;
@@ -22,12 +21,12 @@ public class DangKyLopTinChiAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    ArrayList<ObjectDangKyLopTinChi> listDKLTC;
-    private ObjectDangKyLopTinChi objectDangKyLopTinChi;
+    ArrayList<DangKyLopTinChi> listDKLTC;
+    private DangKyLopTinChi objectDangKyLopTinChi;
     public static ArrayList<Integer> dsLTCduocchon = new ArrayList<Integer>();
 
 
-    public DangKyLopTinChiAdapter(Context context, ArrayList<ObjectDangKyLopTinChi> listDKLTC) {
+    public DangKyLopTinChiAdapter(Context context, ArrayList<DangKyLopTinChi> listDKLTC) {
         this.context = context;
         this.listDKLTC = listDKLTC;
         layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -88,7 +87,7 @@ public class DangKyLopTinChiAdapter extends BaseAdapter {
                 if (listDKLTC.get(currentPos).isIschecked()==false){
                     if(listDKLTC.get(currentPos).getSlCL()==0)
                     {
-                        AlertDialog.Builder thongbao = new AlertDialog.Builder((DangKyLopTinChi) v.getContext());
+                        AlertDialog.Builder thongbao = new AlertDialog.Builder((com.example.QLDSV.DangKyLopTinChi) v.getContext());
                         thongbao.setTitle("Thông báo!");
                         thongbao.setMessage(listDKLTC.get(currentPos).getMaLTC() + " đã hết slot.");
                         thongbao.setIcon(R.drawable.ic_thongbao);
@@ -107,13 +106,13 @@ public class DangKyLopTinChiAdapter extends BaseAdapter {
                         dsLTCduocchon.add(Integer.valueOf(currentPos));
 
                         //Toast.makeText(context, "Chon:" + listDKLTC.get(currentPos).getMaLTC(), Toast.LENGTH_SHORT).show();
-                        DangKyLopTinChi.queryUpdateDangKyLTC+="insert into dangki(MaLTC,MaSV) values ('"+listDKLTC.get(currentPos).getMaLTC()+"','"+ LopTinChiDaDangKy.MaSinhVien +"');\n";
+                        com.example.QLDSV.DangKyLopTinChi.queryUpdateDangKyLTC+="insert into dangki(MaLTC,MaSV) values ('"+listDKLTC.get(currentPos).getMaLTC()+"','"+ LopTinChiDaDangKy.MaSinhVien +"');\n";
                     }
                 }
                 else
                 {
                     //Toast.makeText(context, "HuyChon: "+currentPos, Toast.LENGTH_SHORT).show();
-                    DangKyLopTinChi.queryUpdateDangKyLTC+="delete from dangki where MaLTC='"+listDKLTC.get(currentPos).getMaLTC()+"' and MaSV='"+ LopTinChiDaDangKy.MaSinhVien +"';\n";
+                    com.example.QLDSV.DangKyLopTinChi.queryUpdateDangKyLTC+="delete from dangki where MaLTC='"+listDKLTC.get(currentPos).getMaLTC()+"' and MaSV='"+ LopTinChiDaDangKy.MaSinhVien +"';\n";
                     dsLTCduocchon.remove(Integer.valueOf(currentPos));
                 }
 

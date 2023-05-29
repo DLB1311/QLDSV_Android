@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.Objects.ObjectLopTinChiNhapDiem;
+import com.example.Objects.LopTinChiNhapDiem;
 import com.example.QLDSV.R;
 
 import java.util.ArrayList;
@@ -18,16 +18,16 @@ public class LopTinChiNhapDiemAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private LayoutInflater layoutInflater;
-    ArrayList<ObjectLopTinChiNhapDiem> listLTC;
-    private ObjectLopTinChiNhapDiem objectLopTinChiNhapDiem;
+    ArrayList<LopTinChiNhapDiem> listLTC;
+    private LopTinChiNhapDiem objectLopTinChiNhapDiem;
 
-    public LopTinChiNhapDiemAdapter(Context context, ArrayList<ObjectLopTinChiNhapDiem> listLTC) {
+    public LopTinChiNhapDiemAdapter(Context context, ArrayList<LopTinChiNhapDiem> listLTC) {
         this.context = context;
         this.listLTC = listLTC;
         layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public LopTinChiNhapDiemAdapter(Context context, int layout, ArrayList<ObjectLopTinChiNhapDiem> listLTC) {
+    public LopTinChiNhapDiemAdapter(Context context, int layout, ArrayList<LopTinChiNhapDiem> listLTC) {
         this.context = context;
         this.layout=layout;
         this.listLTC=listLTC;

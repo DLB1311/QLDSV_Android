@@ -29,36 +29,33 @@
             </intent-filter>
         </activity>
         <activity android:name=".TrangChuSV" android:exported="true"/>
-        <activity android:name=".Qlloptinchi_detail" android:exported="true"/>
-        <activity android:name=".Qlloptinchi_add" android:exported="true"/>
-        <activity android:name=".Qlloptinchi_main" android:exported="true"/>
-        <activity android:name=".QlmonhocTaomonhocActivity" android:exported="true"/>
+        <activity android:name=".QLLopTinChi_CT" android:exported="true"/>
+        <activity android:name=".ThemLopTinChi" android:exported="true"/>
+        <activity android:name=".QLLopTinChi" android:exported="true"/>
+        <activity android:name=".TaoMonHoc" android:exported="true"/>
         <activity android:name=".DangNhap" android:exported="true"/>
-        <activity android:name=".main_giangvien" android:exported="true"/>
-        <activity android:name=".nhapdiem" android:exported="true"/>
-        <activity android:name=".nhapdiem_ct_ltc" android:exported="true"/>
-        <activity android:name=".cap_nhat_diem" android:exported="true"/>
-        <activity android:name=".Doimatkhausv" android:exported="true"/>
+        <activity android:name=".TrangChuGV" android:exported="true"/>
+        <activity android:name=".NhapDiem" android:exported="true"/>
+        <activity android:name=".NhapDiem_CT_LTC" android:exported="true"/>
+        <activity android:name=".CapNhatDiem" android:exported="true"/>
+        <activity android:name=".DoiMatKhauSV" android:exported="true"/>
         <activity
-            android:name=".QlmonhocMainActivity"
+            android:name=".QLMonHoc"
             android:exported="true" />
         <activity
-            android:name=".QlmonhocDetailsActivity"
+            android:name=".QLMonHoc_CT"
             android:exported="true" />
         <activity
-            android:name=".Qltaikhoansv"
+            android:name=".QLTaiKhoanSV"
             android:exported="true" />
         <activity
-            android:name=".Taotaikhoansv"
+            android:name=".TaoTaiKhoanSV"
             android:exported="true" />
         <activity
-            android:name=".Thongtinsv"
+            android:name=".ThongTinSinhVien"
             android:exported="true" />
         <activity
-            android:name=".Taikhoansv_ct"
-            android:exported="true" />
-        <activity
-            android:name=".Doimatkhausv"
+            android:name=".TaiKhoanSV_CT"
             android:exported="true" />
         <activity
             android:name=".DangKyLopTinChi"

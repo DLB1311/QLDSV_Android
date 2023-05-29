@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.Database.DatabaseManager;
 import com.example.Objects.LopTinChi;
 import com.example.adapter.LopTinChiAdapter;
 
@@ -23,7 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-public class Qlloptinchi_main extends AppCompatActivity {
+public class QLLopTinChi extends AppCompatActivity {
     Connection conn;
     Button btnAddLTC;
     Button btnDelLTC;
@@ -97,7 +98,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
                     listViewLTC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(Qlloptinchi_main.this, Qlloptinchi_detail.class);
+                            Intent intent = new Intent(QLLopTinChi.this, QLLopTinChi_CT.class);
                             intent.putExtra("maltc", listLTC.get(i).getMaltc());
                             startActivity(intent);
                         }
@@ -108,7 +109,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
                     listViewLTC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(Qlloptinchi_main.this, Qlloptinchi_detail.class);
+                            Intent intent = new Intent(QLLopTinChi.this, QLLopTinChi_CT.class);
                             intent.putExtra("maltc", listLTC.get(i).getMaltc());
                             startActivity(intent);
                         }
@@ -127,7 +128,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
         btnAddLTC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Qlloptinchi_main.this, Qlloptinchi_add.class);
+                Intent intent = new Intent(QLLopTinChi.this, ThemLopTinChi.class);
                 startActivity(intent);
                 finish();
             }
@@ -136,7 +137,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
         btnDelLTC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Qlloptinchi_main.this, Qlloptinchi_add.class);
+                Intent intent = new Intent(QLLopTinChi.this, ThemLopTinChi.class);
                 startActivity(intent);
                 finish();
             }
@@ -145,7 +146,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
         btnClickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Qlloptinchi_main.this, TrangChuPGV.class);
+                Intent intent = new Intent(QLLopTinChi.this, TrangChuPGV.class);
                 startActivity(intent);
                 finish();
             }
@@ -162,8 +163,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 ArrayList<LopTinChi> listLTCDB = new ArrayList<>();
                 try {
-                    connectionHelper ch = new connectionHelper();
-                    conn = ch.connectionClass();
+                    conn = DatabaseManager.getConnection();
                     if(conn != null) {
                         String query = "SELECT MaLTC, NamHoc FROM LopTinChi";
                         Statement st = conn.createStatement();
@@ -197,8 +197,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
     }
     public void loadDataListView() {
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM LopTinChi";
                 Statement st = conn.createStatement();
@@ -221,8 +220,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
     public void loadDataListViewNamHoc(String str) {
         listLTC = new ArrayList<>();
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT * FROM LopTinChi WHERE NamHoc = '" + str + "'";
                 Statement st = conn.createStatement();
@@ -239,7 +237,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
         catch (Exception e) {
             Log.e("ERROR", e.getMessage());
         }
-        LopTinChiAdapter adapter = new LopTinChiAdapter(Qlloptinchi_main.this,R.layout.list_loptinchi,listLTC);
+        LopTinChiAdapter adapter = new LopTinChiAdapter(QLLopTinChi.this,R.layout.list_loptinchi,listLTC);
         listViewLTC.setAdapter(adapter);
     }
     public void loadSpinnerNienKhoa(Spinner spinner) {
@@ -255,8 +253,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
     public ArrayList<String> loadDataDangKi(String str) {
         ArrayList<String> listDangKi = new ArrayList<>();
         try {
-            connectionHelper ch = new connectionHelper();
-            conn = ch.connectionClass();
+            conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT TOP 1 MaLTC FROM DangKi WHERE MaLTC = '" + str + "'";
                 Statement st = conn.createStatement();
@@ -273,13 +270,12 @@ public class Qlloptinchi_main extends AppCompatActivity {
         return listDangKi;
     }
     public void deleteLTC(int i) {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Qlloptinchi_main.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(QLLopTinChi.this);
         bulider.setMessage("Xác nhận xoá lớp tín chỉ này?");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String maltc = listLTC.get(i).getMaltc();
-                Log.i("maltc", maltc);
                 LopTinChi ltc = listLTC.get(i);
                 ArrayList<String> listDangKi = loadDataDangKi(maltc);
                 if(listDangKi.size() == 0) {
@@ -309,7 +305,7 @@ public class Qlloptinchi_main extends AppCompatActivity {
         alert.show();
     }
     public void deleteFail(String str) {
-        AlertDialog.Builder bulider = new AlertDialog.Builder(Qlloptinchi_main.this);
+        AlertDialog.Builder bulider = new AlertDialog.Builder(QLLopTinChi.this);
         bulider.setMessage("Không thể xoá lớp tín chỉ " + str.trim() + ". Do lớp tín chỉ đã có người đăng kí");
         bulider.setCancelable(true);
         bulider.setPositiveButton("Đồng ý",new DialogInterface.OnClickListener() {

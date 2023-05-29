@@ -1,6 +1,4 @@
-package com.example.QLDSV;
-
-import com.example.Objects.Semester;
+package com.example.Objects;
 
 public class SubjectScore {
     private String subjectId, subjectName, finalScoreByChar;

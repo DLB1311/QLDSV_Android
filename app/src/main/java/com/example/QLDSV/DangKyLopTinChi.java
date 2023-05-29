@@ -25,11 +25,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.Database.ConnectionHelper;
 import com.example.Database.DatabaseManager;
 import com.example.adapter.DangKyLopTinChiAdapter;
 import com.example.adapter.LopTinChiDaDangKyAdapter;
-import com.example.Objects.ObjectDangKyLopTinChi;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -45,8 +43,8 @@ public class DangKyLopTinChi extends AppCompatActivity {
     ArrayList<String> arrHocKy = new ArrayList<String>();
     String  MaSinhVien;
     ListView listviewDK;
-    ArrayList<ObjectDangKyLopTinChi> arrDangKyLopTinChi;
-    ObjectDangKyLopTinChi objectDangKyLopTinChi;
+    ArrayList<com.example.Objects.DangKyLopTinChi> arrDangKyLopTinChi;
+    com.example.Objects.DangKyLopTinChi objectDangKyLopTinChi;
     DangKyLopTinChiAdapter dangKyLopTinChiAdapter;
     LopTinChiDaDangKyAdapter lopTinChiDaDangKyAdapter;
     int vitri=-1,vitriNienKhoa=0, vitriHocKy=0;
@@ -231,9 +229,6 @@ public class DangKyLopTinChi extends AppCompatActivity {
     {
         try
         {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
-
             connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = "";
@@ -287,7 +282,7 @@ public class DangKyLopTinChi extends AppCompatActivity {
                 int i=0;
                 while(rs.next())
                 {
-                    objectDangKyLopTinChi = new ObjectDangKyLopTinChi();
+                    objectDangKyLopTinChi = new com.example.Objects.DangKyLopTinChi();
                     objectDangKyLopTinChi.setId(i);
                     objectDangKyLopTinChi.setMaLTC(rs.getString(1));
                     objectDangKyLopTinChi.setTenMH(searchTenMonHoc(rs.getString(2)));
@@ -320,9 +315,6 @@ public class DangKyLopTinChi extends AppCompatActivity {
         public void xuatNienKhoa() {
         try
         {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
-
             connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = "select distinct namhoc, cast(substring(NamHoc,0,5) as int)\n" +
@@ -353,9 +345,6 @@ public class DangKyLopTinChi extends AppCompatActivity {
     public void UpdateDangKiLTC() {
         try
         {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
-
             connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = queryUpdateDangKyLTC;
@@ -374,9 +363,6 @@ public class DangKyLopTinChi extends AppCompatActivity {
     public String searchTenMonHoc(String maMH) {
         String sql = " SELECT tenmh FROM monhoc WHERE mamh=N'" + maMH + "'";
         try {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
-
             connect = DatabaseManager.getConnection();
             Statement st = connect.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -391,9 +377,6 @@ public class DangKyLopTinChi extends AppCompatActivity {
 
     public void timKiemDK(String kitu){
         try {
-//            ConnectionHelper connectionHelper = new ConnectionHelper();
-//            connect = connectionHelper.connectionHelper();
-
             connect = DatabaseManager.getConnection();
             if (connect != null) {
                 String query = "select * from LopTinChi ltc\n" +
@@ -405,7 +388,7 @@ public class DangKyLopTinChi extends AppCompatActivity {
                 int i=0;
                 while(rs.next())
                 {
-                    objectDangKyLopTinChi = new ObjectDangKyLopTinChi();
+                    objectDangKyLopTinChi = new com.example.Objects.DangKyLopTinChi();
                     objectDangKyLopTinChi.setId(i);
                     objectDangKyLopTinChi.setMaLTC(rs.getString(1));
                     objectDangKyLopTinChi.setTenMH(searchTenMonHoc(rs.getString(8)));

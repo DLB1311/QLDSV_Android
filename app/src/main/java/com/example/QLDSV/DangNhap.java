@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.Database.DatabaseManager;
+import com.example.Objects.TaiKhoan;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -37,7 +38,9 @@ public class DangNhap extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String mavt = loadMaVaiTro(txtTaikhoan.getText().toString(), txtPassword.getText().toString());
-                String matk = loadMaTK(txtTaikhoan.getText().toString(), txtPassword.getText().toString());
+                TaiKhoan tk = loadTaiKhoan(txtTaikhoan.getText().toString(), txtPassword.getText().toString());
+                String matk = tk.getMatk();
+                String mk = tk.getMatkhau();
 
                 if(checkEmpty(txtTaikhoan)) {
                     txtTaikhoan.setError("Vui lòng nhập tên tài khoản");
@@ -64,18 +67,18 @@ public class DangNhap extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else if (mavt.equals("VT2")) {
-                        Intent intent = new Intent(DangNhap.this, main_giangvien.class);
+                        Intent intent = new Intent(DangNhap.this, TrangChuGV.class);
                         intent.putExtra("maGiangVien", matk);
                         startActivity(intent);
                     }
                     else if (mavt.equals("VT3")) {
                         Intent intent = new Intent(DangNhap.this, TrangChuSV.class);
                         intent.putExtra("maSinhVien", matk);
-//                        intent.putExtra("matKhau", mk);
+                        intent.putExtra("matKhau", mk);
                         startActivity(intent);
                     }
                     else {
-                        Intent intent = new Intent(DangNhap.this, nhapdiem_ct_ltc.class);
+                        Intent intent = new Intent(DangNhap.this, NhapDiem_CT_LTC.class);
                         startActivity(intent);
                     }
                 }
@@ -85,9 +88,6 @@ public class DangNhap extends AppCompatActivity {
     public String loadMaVaiTro(String taikhoan, String matkhau) {
         String mavt = "";
         try {
-//            connectionHelper ch = new connectionHelper();
-//            conn = ch.connectionClass();
-
             conn = DatabaseManager.getConnection();
             if(conn != null) {
                 String query = "SELECT MaVaitro FROM TaiKhoan WHERE TenTaiKhoan = '" + taikhoan + "' AND MatKhau = '" + matkhau + "'";
@@ -105,28 +105,26 @@ public class DangNhap extends AppCompatActivity {
         return mavt;
     }
 
-    public String loadMaTK(String taikhoan, String matkhau) {
-        String matk = "" ;
+    public TaiKhoan loadTaiKhoan(String taikhoan, String matkhau) {
+        TaiKhoan tk = null;
         try {
-//            connectionHelper ch = new connectionHelper();
-//            conn = ch.connectionClass();
-
             conn = DatabaseManager.getConnection();
             if(conn != null) {
-                String query = "SELECT Matk FROM TaiKhoan WHERE TenTaiKhoan = '" + taikhoan + "' AND MatKhau = '" + matkhau + "'";
+                String query = "SELECT * FROM TaiKhoan WHERE TenTaiKhoan = '" + taikhoan + "' AND MatKhau = '" + matkhau + "'";
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
-                    matk = rs.getString("Matk");
-
+                   String matk = rs.getString("Matk");
+                    String tentk = rs.getString("TenTaiKhoan");
+                   String mk = rs.getString("MatKhau");
+                   tk = new TaiKhoan(matk, tentk,mk);
                 }
             }
         }
         catch (Exception e) {
             Log.e("ERROR", e.getMessage());
         }
-        Log.e("MATK", matk);
-        return matk;
+        return tk;
     }
 
     boolean checkEmpty(EditText edt) {

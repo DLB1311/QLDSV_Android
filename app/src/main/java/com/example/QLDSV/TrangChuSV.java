@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
@@ -31,10 +29,9 @@ import com.example.adapter.ChartPagerAdapter;
 import androidx.cardview.widget.CardView;
 import android.widget.ImageView;
 import java.sql.PreparedStatement;
-import com.bumptech.glide.Glide;
 
 import android.content.Intent;
-import com.example.QLDSV.MyAppGlideModule;
+
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -50,6 +47,7 @@ public class TrangChuSV extends AppCompatActivity {
     private ImageButton menubtn,btnUser;
     private DrawerLayout drawerLayoutTrangChu;
     String maSinhVien = "";
+    String matKhau = "";
 
     private ImageView imageView;
 
@@ -59,6 +57,7 @@ public class TrangChuSV extends AppCompatActivity {
         setContentView(R.layout.activity_trangchusinhvien);
         Intent intent = getIntent();
         maSinhVien = intent.getStringExtra("maSinhVien");
+        matKhau = intent.getStringExtra("matKhau");
 //      Ánh xạ
         setControl();
 
@@ -116,16 +115,18 @@ public class TrangChuSV extends AppCompatActivity {
         cvAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TrangChuSV.this, Thongtinsv.class);
+                Intent intent = new Intent(TrangChuSV.this, ThongTinSinhVien.class);
                 intent.putExtra("maSinhVien", maSinhVien);
+                intent.putExtra("matKhau", matKhau);
                 startActivity(intent);
             }
         });
         btnUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TrangChuSV.this, Thongtinsv.class);
+                Intent intent = new Intent(TrangChuSV.this, ThongTinSinhVien.class);
                 intent.putExtra("maSinhVien", maSinhVien);
+                intent.putExtra("matKhau", matKhau);
                 startActivity(intent);
             }
         });
@@ -155,7 +156,7 @@ public class TrangChuSV extends AppCompatActivity {
                         break;
                     }
                     case R.id.nav_taikhoan: {
-                        Intent intent = new Intent(TrangChuSV.this, Thongtinsv.class);
+                        Intent intent = new Intent(TrangChuSV.this, ThongTinSinhVien.class);
                         intent.putExtra("maSinhVien", maSinhVien);
                         startActivity(intent);
                         break;
